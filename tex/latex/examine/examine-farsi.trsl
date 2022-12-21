@@ -1,0 +1,9 @@
+\DeclareTranslation{farsi}{point}{نمره}
+\DeclareTranslation{farsi}{points}{نمره}
+\DeclareTranslation{farsi}{(bonus)}{تشویقی}
+\DeclareTranslation{farsi}{point (bonus)}{نمره تشویقی}
+\DeclareTranslation{farsi}{points (bonus)}{نمره تشویقی}
+\DeclareTranslation{farsi}{Solution}{پاسخ}
+\DeclareTranslation{farsi}{First and Last Name}{نام و نام خانوادگی}
+\DeclareTranslation{farsi}{grade}{پایه}
+\DeclareTranslation{farsi}{branch}{شعبه}

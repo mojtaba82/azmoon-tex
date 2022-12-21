@@ -1,0 +1,63 @@
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\tikzstyle{section} = [draw=blue, fill=green!40, thick, rectangle, rounded corners]
+\setlength\headsep{3pt}
+\newcommand{\@question}[3]{%
+	\def\ques@point{#1}%
+	\begin{tcolorbox}[
+%		arc=3pt,
+		bicolor,
+		left=1pt,
+		right=1pt,
+		top=1pt,
+		bottom=2pt,
+		boxsep=0pt,
+		colback=red!0,
+		breakable,
+		before skip=0pt,
+		after skip=5pt,
+		boxrule=.6pt,
+		colframe=blue!60!white,
+%		rule=0pt,
+		%	bottomtitle=-10pt,
+		toptitle=-16pt,
+		titlerule=0pt,
+%		title={%
+%			\hspace*{10pt}%
+%			\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{%
+%%				\ifx#3\@nnil\else\vphantom{$#3$ نمره}\fi%
+%				#1};%
+%			\hfill%
+%			\ifx#3\@nnil\else%
+%			\tikz\node[rectangle,fill=\quespointbox@color,rounded corners=3pt, draw=blue]{\rl{\textcolor{\quespoint@color}{$#3$ نمره}}};%
+%			\hspace*{10pt}%
+%					\hspace*{10pt}
+%			\fi%
+%		},
+		colbacktitle=green!20!white,
+			coltitle=black
+		]%
+		\hspace{0cm}%
+		\tikz[baseline={([yshift=-.3ex]current bounding box.center)},rounded corners=.25cm]%
+		\draw[fill=red!50!white] (0,0) rectangle\ifnum\ques@point<100(.5,.5)\else(.6,.5)\fi node[pos=.5]{\small#1};%
+		#2
+	\end{tcolorbox}%
+%	{\hspace{0cm}\tikz[baseline]\draw[fill=red] (0,0) circle (.25) node[pos=.5]{#1};. #2}
+}
+\newcommand{\@section}[1]{%
+%	\centering
+	\vspace{.5cm}
+	\begin{tikzpicture}[thick]
+		\node [section, anchor=east] (section box) at (12,0){\rl{\large\textbf{#1}}};%
+		\coordinate (hsectionu) at ($(section box.east)+(0,.05)$);
+		\coordinate (hsectiond) at ($(section box.east)+(0,-.05)$);
+		\coordinate (0) at (0,0);
+		\draw[blue] (current page.west|-hsectionu)--($(section box.west)+(0,.05)$);
+		\draw[blue] (current page.west|-hsectiond)--($(section box.west)+(0,-.05)$);
+		\draw[blue] ($(current page.east|-hsectionu)+(-1.5,0)$)--($(section box.east)+(0,.05)$);
+		\draw[blue] ($(current page.east|-hsectiond)+(-1.5,0)$)--($(section box.east)+(0,-.05)$);
+	\end{tikzpicture}
+%	\vskip-\baselineskip%
+%	\vspace{-7pt}%
+	\par\vspace{.2cm}
+}

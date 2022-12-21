@@ -1,0 +1,34 @@
+\def\@setlineskip{\baselineskip=1.5\baselineskip}
+\fancypagestyle{standard}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+	\large%
+	\framebox[\linewidth]{%
+	\begin{minipage}{.3\linewidth}%
+		\@setlineskip%
+		\parbox{\linewidth}{‎\textbf{نام و نام‌خانوادگی: \student@name}}
+		‎\parbox{\linewidth}{\textbf{پایه \@grade\ شعبه \@branch}}	
+		\parbox{\linewidth}{\textbf{\school@title\ \@school}}%
+	\end{minipage}%
+	\begin{minipage}{.4\linewidth}%
+		\@setlineskip%
+		\parbox{\linewidth}{\hfil\textbf{اداره آموزش و پرورش استان \st@te}\hfil}
+        \parbox{\linewidth}{\hfil\textbf{اداره سنجش و ارزشیابی تحصیلی}\hfil}
+       	\parbox{\linewidth}{\hfil\textbf{ اداره آموزش و پرورش \@city}\hfil}
+	\end{minipage}%
+	\begin{minipage}{.3\linewidth}%
+		\@setlineskip%
+		\parbox{\linewidth}{\hfill\textbf{تاریخ ارزشیابی: \exam@date}}
+		\parbox{\linewidth}{‎\hfill\textbf{زمان پاسخگویی: \answer@time}}
+		\parbox{\linewidth}{\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}}%
+	\end{minipage}%
+	}%
+}
+\fancyhead[RE]{%
+	\framebox[\linewidth]{%
+		\textbf{نام و نام‌خانوادگی:}\hfill%
+		\textbf{صفحه \thepage\ از \pageref{LastPage}}%}
+	}%
+}%
+}

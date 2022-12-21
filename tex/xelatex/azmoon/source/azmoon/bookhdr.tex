@@ -1,0 +1,62 @@
+\fancypagestyle{book}{%
+	\fancyhf{}
+\headsep.2cm
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[RO]{%
+	\Large\settextfont{A Dast Nevis}
+	\hspace{.3cm}
+	\begin{tikzpicture}[remember picture, baseline={([yshift=-.9ex]current bounding box.center)}]
+	\node (title) {\rl{فصل \numberstringfa{chapter}: \leftmark}};
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[remember picture, baseline={([yshift=-.9ex]current bounding box.center)}, thick]
+	\node (pageno) {
+		\tikz[overlay]\draw (0,0) circle(.4)node [pos=.5]{\normalsize\thepage};%
+		\tikz[overlay]\draw (0:.4)--(60:.4)--(120:.4)--(180:.4)--(240:.4)--(300:.4)--cycle;
+	};
+	\end{tikzpicture}
+	\hspace{.1cm}
+	\begin{tikzpicture}[remember picture, overlay, rounded corners]
+	\coordinate (1) at ($(pageno.east) + (.3,1.2)$);
+	\coordinate (2) at ($(pageno.east) + (.3,-.5)$);
+	\coordinate (3) at ($(pageno.west) + (-.3,-.5)$);
+	\coordinate (4) at ($(pageno.west) + (-.3,1.2)$);
+	\coordinate (5) at ($(title.east) + (.25,.6)$);
+	\coordinate (6) at ($(title.east) + (-.25,-.5)$);
+	\coordinate (7) at ($(title.west) + (.25,.-.5)$);
+	\coordinate (8) at ($(title.west) + (-.25,.6)$);
+	\fill[blue!35!white] (1)--(2)--(3)--(4);
+	\fill[blue!35!white] (5)--(6)--(7)--(8);
+	\end{tikzpicture}
+}
+\fancyhead[RE]{%
+	\Large\settextfont{A Dast Nevis}
+	\hspace{.3cm}
+	\begin{tikzpicture}[remember picture, baseline={([yshift=-.9ex]current bounding box.center)}, thick]
+	\node (pageno) {
+		\tikz[overlay]\draw (0,0) circle(.4)node [pos=.5]{\normalsize\thepage};%
+		\tikz[overlay]\draw (0:.4)--(60:.4)--(120:.4)--(180:.4)--(240:.4)--(300:.4)--cycle;
+	};
+	%		\draw (0,0) circle(.4)node (pageno) [pos=.5]{\normalsize\thepage};
+	%		\draw (0:.4)--(60:.4)--(120:.4)--(180:.4)--(240:.4)--(300:.4)--cycle;
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[remember picture, baseline={([yshift=-.9ex]current bounding box.center)}]
+	\node (title) {\rl{فصل \numberstringfa{chapter}: \leftmark}};
+	\end{tikzpicture}
+	\hspace{.05cm}
+	\begin{tikzpicture}[remember picture, overlay, rounded corners]
+	\coordinate (1) at ($(pageno.east) + (.3,1.2)$);
+	\coordinate (2) at ($(pageno.east) + (.3,-.5)$);
+	\coordinate (3) at ($(pageno.west) + (-.3,-.5)$);
+	\coordinate (4) at ($(pageno.west) + (-.3,1.2)$);
+	\coordinate (5) at ($(title.east) + (.25,.6)$);
+	\coordinate (6) at ($(title.east) + (-.25,-.5)$);
+	\coordinate (7) at ($(title.west) + (.25,.-.5)$);
+	\coordinate (8) at ($(title.west) + (-.25,.6)$);
+	\fill[blue!35!white] (1)--(2)--(3)--(4);
+	\fill[blue!35!white] (5)--(6)--(7)--(8);
+	\end{tikzpicture}
+}
+
+}

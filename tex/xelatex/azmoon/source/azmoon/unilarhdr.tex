@@ -1,0 +1,49 @@
+\logo[height=3cm,width=3.5cm]{logo-unilar.png}
+\fancypagestyle{unilar}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+%	\large%
+    \framebox[\linewidth]{
+    	\begin{minipage}{.2\linewidth}
+    		\IfFileExists{\l@go}%
+    		{\includegraphics[width=2.35cm, height=2.77cm]{\l@go}}%
+    		{%
+    			\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+    			\edef\l@go{\l@g@}%
+    		}%
+    	\end{minipage}%
+    \begin{minipage}{.55\linewidth}
+    	\centering
+    	باسمه تعالی
+    	\\\vspace{.2cm}
+    	{\large مجتمع آموزش عالی لارستان}
+    	\\\vspace{.2cm}
+    	سؤالات امتحانی پایان \ex@mturn\space سال تحصیلی \sch@olyear
+    \end{minipage}%
+    \begin{minipage}{.25\linewidth}
+    	\framebox[4.5cm]{شماره صندلی:\hfill}
+    	\\
+    	\framebox[4.5cm]{شماره مدرک: \hfill}
+    	\\\vfill
+    	ماشین‌حساب مجاز نیست
+    \end{minipage}%
+    }
+ \framebox[\linewidth]{
+ 	نام و نام خانوادگی: \hspace{5cm} شماره دانشجویی: \hspace{5cm} رشته:\hfill
+ }
+ \framebox[\linewidth]{
+	نام درس: \c@urse\hfill نام استاد: \teacher@name\hfill  تاریخ امتحان: \exam@date\hfill مدت امتحان: \answer@time
+}
+\vskip-\baselineskip%
+}
+\fancyhead[RE]{%
+	\textbf{نام و نام خانوادگی:}
+	\hfill
+	\textbf{صفحه \thepage\ از \pageref{LastPage}}
+	\\\vspace{.2cm}
+	\hrule width \linewidth height 2pt
+	\nointerlineskip%
+	\vskip-\baselineskip%
+}%
+}

@@ -1,0 +1,66 @@
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\tikzstyle{header} = [draw=\headboxrule@color, fill=\headbox@color, thick,
+rectangle, rounded corners=2pt, inner sep=3pt, inner ysep=3pt,
+outer sep=3pt, outer ysep=3pt]
+\fancypagestyle{fantasy}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+	\begin{tcolorbox}[
+		arc=3pt,
+		bicolor,
+		left=1pt,
+		right=1pt,
+		top=1pt,
+		bottom=1pt,
+		boxsep=0pt,
+		colback=\headbox@color,
+		before skip=0pt,
+		after skip=0pt,
+		boxrule=1pt,
+		colframe=\headboxrule@color,
+		]%
+			\begin{minipage}[t]{\dimexpr .35\linewidth\relax}
+			‎\textbf{\textcolor{\head@ques@color}{نام و نام‌خانوادگی:} \textcolor{\head@answer@color}{\student@firstname\ \student@lastname}}
+			\\
+			‎\textbf{\textcolor{\head@ques@color}{پایه} \textcolor{\head@answer@color}{\@grade}\ \textcolor{\head@ques@color}{شعبه} \textcolor{\head@answer@color}{\@branch}}
+			\\
+			\textbf{\textcolor{\head@ques@color}{\school@title}\ \textcolor{\head@answer@color}{\@school}}
+			\end{minipage}%
+			\begin{minipage}[t]{.3\linewidth}
+			\centering
+			\IfFileExists{\l@go}%
+			{}%
+			{%
+				\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+				\edef\l@go{\l@g@}%
+			}%
+			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\l@go}}
+			\end{minipage}%
+			\begin{minipage}[t]{.35\linewidth}
+			\hfill\textbf{\textcolor{\head@ques@color}{تاریخ ارزشیابی:} \textcolor{\head@answer@color}{\exam@date}}
+			\\
+			\hfill‎\textbf{\textcolor{\head@ques@color}{زمان پاسخگویی:} \textcolor{\head@answer@color}{\answer@time}}
+			\\
+			\hfill\textbf{\textcolor{\head@ques@color}{\total{numques} سوال در \pageref{LastPage} صفحه}}
+			\end{minipage}%
+	\\%
+	\end{tcolorbox}%
+	\vspace{-\baselineskip}
+}
+\fancyhead[RE]{%
+	\begin{tikzpicture}
+	\setRTL
+	\node [header] (header box){%
+		\vbox{%
+			\hsize=\dimexpr \linewidth-6.8pt\relax
+			\textbf{\textcolor{\head@ques@color}{نام و نام‌خانوادگی:}}\hfill
+			\textbf{\textcolor{\head@ques@color}{صفحه \thepage\ از \pageref{LastPage}}}
+		}
+	};
+	\end{tikzpicture}
+	\vspace{-\baselineskip}
+}
+}
+

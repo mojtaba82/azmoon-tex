@@ -1,0 +1,55 @@
+\def\@fheader{%
+	\large
+	\hrule\vspace{2pt}%
+	\begin{minipage}[t]{.35\linewidth}
+		‎\textbf{نام و نام‌خانوادگی: \student@name}
+		\par
+		‎\textbf{پایه \@grade\ شعبه \@branch}
+		\par
+		\textbf{\school@title\ \@school}
+	\end{minipage}%
+	\begin{minipage}[t]{.3\linewidth}
+		\centering
+		\IfFileExists{\l@go}%
+		{}%
+		{%
+			\ClassWarning{azmoon}{\l@go{} file not exist.}{}%
+			\edef\l@go{\l@g@}%
+		}%
+		\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\l@go}}
+	\end{minipage}%
+	\begin{minipage}[t]{.35\linewidth}
+		\hfill\textbf{تاریخ ارزشیابی: \exam@date}
+		\par
+		\hfill‎\textbf{زمان پاسخگویی: \answer@time}
+		\par
+		\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}
+	\end{minipage}%
+	\vspace{.1cm}\hrule
+	\vspace{.1cm}
+	\begin{minipage}[t]{.333\linewidth}
+		\textbf{\teacher@title: \teacher@name}
+	\end{minipage}%
+	\begin{minipage}[t]{.333\linewidth}
+		\centering
+		\textbf{نمره:} \rule{1cm}{.5pt} \textbf{از $\strip@pt\totalpoint$}
+	\end{minipage}%
+	\begin{minipage}[t]{.333\linewidth}
+		\hfill
+		\textbf{رتبه در کلاس:} \rule{1cm}{.5pt} \textbf{از} \rule{1cm}{.5pt}
+	\end{minipage}%
+	\vspace{2pt}
+	\hrule\vspace{-\baselineskip}
+}
+\def\@mheader{%
+	\hrule\vspace{2pt}
+	\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
+	\vspace{2pt}
+	\hrule\vspace{-\baselineskip}
+}
+\def\@lheader{%
+	\hrule\vspace{2pt}
+	\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
+	\vspace{2pt}
+	\hrule\vspace{-\baselineskip}
+}

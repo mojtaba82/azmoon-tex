@@ -1,0 +1,37 @@
+%\RequirePackage{frbox}
+\fancypagestyle{tabling}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+	\large%
+	\framebox[\dimexpr\linewidth\relax]{%
+	\begin{minipage}{\dimexpr.35\linewidth\relax}%
+		‎\parbox{\linewidth}{\textbf{نام و نام‌خانوادگی: \student@name}}
+		‎\parbox{\linewidth}{\textbf{پایه \@grade\ شعبه \@branch}}
+		\parbox{\linewidth}{\textbf{\school@title\ \@school}}%
+	\end{minipage}%
+	\begin{minipage}{.3\linewidth}%
+		\centering
+		\IfFileExists{\l@go}%
+		{}%
+		{%
+			\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+			\edef\l@go{\l@g@}%
+		}%
+		\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\l@go}}
+	\end{minipage}%
+	\begin{minipage}{.35\linewidth}%
+		\parbox{\linewidth}{\hfill\textbf{تاریخ ارزشیابی: \exam@date}}
+		\parbox{\linewidth}{\hfill‎\textbf{زمان پاسخگویی: \answer@time}}
+		\parbox{\linewidth}{\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}}%
+	\end{minipage}%
+	}%
+%	\nointerlineskip\vskip-\baselineskip%
+}
+\fancyhead[RE]{%
+	\framebox[\dimexpr\linewidth\relax]{%
+		\textbf{نام و نام‌خانوادگی:}\hfill%
+		\textbf{صفحه \thepage\ از \pageref{LastPage}}%}
+	}%
+}%
+}

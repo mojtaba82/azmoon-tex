@@ -1,0 +1,41 @@
+\def\@setlineskip{\baselineskip=1.5\baselineskip}
+\fancypagestyle{jaber}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+		\large%
+%		\framebox[\linewidth]{%
+			\begin{minipage}{.3\linewidth}%
+				\@setlineskip%
+				\parbox{\linewidth}{‎:نام \dotfill}
+				\parbox{\linewidth}{‎:نام‌خانوادگی \dotfill}
+				\parbox{\linewidth}{‎نام پدر: \dotfill}
+				\parbox{\linewidth}{‎شماره دانش‌آموزی:\dotfill}
+				\parbox{\linewidth}{‎نام درس:  \hfill\c@urse}
+			\end{minipage}%
+			\begin{minipage}{.4\linewidth}%
+				\@setlineskip%
+				\parbox{\linewidth}{\ifnum\value{page}=1\hfil باسمه تعالی \hfil\fi}
+				\parbox{\linewidth}{\hfil وزارت آموزش و پرورش\hfil}
+				\parbox{\linewidth}{\hfil آموزش و پرورش استان \st@te\hfil}
+				\parbox{\linewidth}{\hfil آموزش و پرورش \@city\hfil}
+				\parbox{\linewidth}{\hfil\school@title\space\@school\hfil}
+			\end{minipage}%
+			\begin{minipage}{.3\linewidth}%
+				\@setlineskip%
+				\parbox{\linewidth}{نوبت امتحانی: \hfill\ex@mturn}
+				\parbox{\linewidth}{پایه: \@grade\hfill رشته: \@field}
+				\parbox{\linewidth}{تاریخ امتحان:\hfill\exam@date}
+				\parbox{\linewidth}{ساعت شروع:\hfill\ex@mtime}
+				\parbox{\linewidth}{‎مدت امتحان:\hfill\answer@time}
+			\end{minipage}%
+%		}%
+    \vspace{0cm}
+	}
+	\fancyhead[RE]{%
+		\framebox[\linewidth]{%
+			نام و نام‌خانوادگی:\hfill%
+			صفحه \thepage\ از \pageref{LastPage}%}
+	}%
+}%
+}

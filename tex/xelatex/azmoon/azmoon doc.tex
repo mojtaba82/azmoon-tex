@@ -1,0 +1,46 @@
+\documentclass[a3paper,12pt,nohead]{azmoon}
+\usepackage{xepersian}
+\settextfont{Yas}
+\setdigitfont{Yas}
+\title{کلاس azmoon}
+\author{مجتبی باغبان}
+\linespread{1.5}
+\newgeometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\section{مقدمه}
+		کلاس azmoon برای تایپ راحت برگه‌ی امتحانی طراحی شده است تا کاربر هنگام طراحی سوال نیازی به طراحی سربرگ و قالب‌بندی سوالات نداشته باشد. کلاس azmoon طراحی سربرگ و قالب‌بندی سوالات را به‌صورت خودکار انجام می‌دهد.
+	\section{فراخوانی کلاس}
+	مانند تمام کلاس‌ها، کلاس azmoon نیز باید در ابتدای سند با دستور
+	\begin{LTR}
+	\begin{verbatim}
+	\documentclass[options]{azmoon}
+	\end{verbatim}
+	\end{LTR}
+	فراخوانی شود. گزینه‌هایی که می‌توانیم در فراخوانی کلاس استفاده کنیم عبارتند از:
+	\subsection{اندازه برگه}
+	\begin{latin}
+	\begin{itemize}
+		\item \verb|papersize=a3paper|
+		\item \verb|papersize=a4paper| $\star$
+		\item \verb|papersize=a5paper|
+	\end{itemize}
+	\end{latin}
+	\subsection{اندازه فونت}
+	\begin{latin}
+		\begin{itemize}
+			\item \verb|fontsize=10pt|
+			\item \verb|fontsize=11pt| $\star$
+			\item \verb|fontsize=12pt|
+		\end{itemize}
+	\end{latin}
+	\subsection{نوع قالب}
+	\begin{latin}
+		\begin{itemize}
+			\item \verb|template=fantasy| $\star$
+			\item \verb|template=tabling|
+			\item \verb|template=classic|
+		\end{itemize}
+	\end{latin}
+\end{document}

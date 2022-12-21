@@ -1,0 +1,113 @@
+%\RequirePackage{framebox}
+\RequirePackage{tcolorbox}
+%\RequirePackage{overpic}
+\tcbuselibrary{skins}
+\logo[height=2cm,width=3.5cm]{logo-farasat.jpg}
+\newtcolorbox{headbox}[1][]{
+	arc=2pt,
+	bicolor,
+	left=1pt,
+	right=1pt,
+	top=1pt,
+	bottom=1pt,
+	boxsep=3pt,
+	colback=white,
+	before skip=0pt,
+	after skip=5pt,
+	boxrule=1pt,
+	colframe=black,
+	titlerule=0pt,
+	%	bottomtitle=-10pt,
+%	toptitle=-9pt,
+	titlerule=0pt,
+	drop shadow=black!90!white,
+	width=7cm,
+	height=0.8cm,
+	#1
+}
+\def\logo@height{2cm}
+\def\logo@width{3cm}
+\fancypagestyle{shfarasatfinal}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+		\large%
+		\fboxsep3pt%
+		\headwidth=\dimexpr \linewidth-2\fboxsep\relax%
+		\framebox[\linewidth]{%
+			\begin{minipage}{7cm}%
+				\begin{headbox}[height=1cm]
+					\textbf{نام:\hfill\student@firstname{} \student@lastname}
+				\end{headbox}
+				%			\par
+				\begin{headbox}
+					\textbf{پایه \makebox[1cm]{\@grade} \@branch\hfill شماره \makebox[1cm]{\chair@number}}
+				\end{headbox}
+				\begin{headbox}[height=1.7cm]
+%					\baselineskip.6\baselineskip
+					\textbf{نمره به عدد و حروف:} \dotfill
+					\\[.2cm]
+					\textbf{نام و امضا دبیر:} \dotfill
+				\end{headbox}
+			\end{minipage}%
+			\begin{minipage}{\dimexpr\headwidth-14cm\relax}%
+				\settextfont{B Titr}
+				\small
+				\centering
+				\IfFileExists{\l@go}%
+				{}%
+				{%
+					\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+					\edef\l@go{\l@g@}%
+				}%
+				\parbox{\linewidth}{\centering\includegraphics[width=\logo@width, height=\logo@height]{\l@go}}
+				\parbox{\linewidth}{\centering\textbf{مدیریت آموزش و پرورش \@city}}
+				\vskip.5\baselineskip
+				\textbf{\centering\school@title\ \@school}
+			\end{minipage}%
+			\begin{minipage}{4cm}
+				\begin{headbox}[width=3.5cm]
+					\centering\Large
+					\textbf{\exam@date}
+				\end{headbox}
+				\begin{headbox}[width=3.5cm, height=1cm]
+					\centering\Large
+					\textbf{\ex@mturn}
+				\end{headbox}
+				\begin{headbox}[width=3.5cm,height=1.7cm]
+					\Large
+					\hfil\textbf{سال تحصیلی}\hfil
+					\\[.2cm]
+					\centering\textbf{\sch@olyear}
+				\end{headbox}
+			\end{minipage}
+			\begin{minipage}{2.5cm}%
+				\hfill%
+				\IfFileExists{\student@photo}{%
+					\show\student@photo
+					\rlap{\includegraphics[width=3cm, height=3.9cm]{\student@photo}}%
+					\includegraphics[width=2.8cm, height=3.7cm]{frame.jpeg}%
+				}%
+			\IfFileExists{\student@photo}{%
+				\includegraphics[width=3cm, height=4cm]{\student@photo}%
+			}%
+%				{\includegraphics[width=2.8cm, height=3.7cm]{\student@photo}}%
+			\end{minipage}%
+		}%
+		\\
+		\framebox[\linewidth]{\textbf{آزمون درس \c@urse\hfill پایه \@grade\hfill \total{numques} سوال در \pageref{LastPage} صفحه\hfill وقت \answer@time\hfill صفحه \thepage\ از \pageref{LastPage}}}
+		\vskip-\baselineskip%
+	}%
+	\fancyhead[RE]{%
+%		\framebox[\linewidth]{%
+%			\begin{headbox}[width=7cm]%
+%				\textbf{نام: \hfill\student@firstname{} \student@lastname}%
+%			\end{headbox}\hfill%
+%			\begin{headbox}[width=2.3cm]%
+%				\textbf{صفحه \thepage\ از \pageref{LastPage}}%
+%			\end{headbox}%
+%		}%
+\framebox[\linewidth]{\textbf{آزمون درس \c@urse\hfill پایه \@grade\hfill \total{numques} سوال در \pageref{LastPage} صفحه\hfill وقت \answer@time\hfill صفحه \thepage\ از \pageref{LastPage}}}
+\vskip-\baselineskip%
+	}%
+}

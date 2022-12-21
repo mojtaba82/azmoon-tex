@@ -1,0 +1,52 @@
+\logo[height=2cm,width=3.5cm]{logo-amirkabir.jpg}
+\fancypagestyle{amirkabir}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+%	\large%
+	\begin{minipage}{.35\linewidth}
+		\textbf{نام و نام خانوادگی:}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{کلاس \@grade \qquad شماره کلاسی:}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{شعبه \@branch}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{درس \c@urse}
+	\end{minipage}%
+	\begin{minipage}[t]{.3\linewidth}%
+		\centering
+		\IfFileExists{\l@go}%
+		{}%
+		{%
+			\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+			\edef\l@go{\l@g@}%
+		}%
+		\includegraphics[width=.53in, height=.66in]{\l@go}
+		\\\vspace{.2cm}%
+		\textbf{\school@title\ \@school}%
+		\\\vspace{.3cm}
+		\textbf{سال تحصیلی \sch@olyear}
+	\end{minipage}%
+		\begin{minipage}{.35\linewidth}
+		\textbf{نام دبیر: \hfill\teacher@name}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{نمره با عدد: \qquad\qquad  نمره با حروف:}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{تاریخ امتحان: \hfill \exam@date}%
+		\\\hdashrule{\linewidth}{.75pt}{3pt 1pt}\\%
+		\textbf{وقت: \answer@time \hfill \total{numques} سوال در \pageref{LastPage} صفحه}
+	\end{minipage}%
+	\\\vspace{.2cm}
+	\hrule width \linewidth height 2pt
+	\vskip-\baselineskip%
+}
+\fancyhead[RE]{%
+	\textbf{نام و نام خانوادگی:}
+	\hfill
+	\textbf{صفحه \thepage\ از \pageref{LastPage}}
+	\\\vspace{.2cm}
+	\hrule width \linewidth height 2pt
+	\nointerlineskip%
+	\vskip-\baselineskip%
+}%
+}

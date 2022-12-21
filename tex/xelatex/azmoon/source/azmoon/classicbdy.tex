@@ -1,0 +1,19 @@
+\newcommand{\@question}[3]{%
+	\bgroup%
+	\par
+	\ifx#3\@nnil\else%
+		\leavevmode\marginnote{\fbox{$#3$}}%
+	\fi%
+	\hspace{-.7cm}\makebox[.5cm][l]{#1.}\hspace{.2cm}#2%
+	\vspace{7pt plus 1pt minus 1pt}%
+	\egroup%
+}
+\newcommand{\@section}[1]{%
+	\par
+	\vskip 2pt plus 1pt minus 1pt
+	\hfil
+	\textbf{#1}
+	\hfil
+	\vskip 2pt plus 1pt minus 1pt
+%	\hrule
+}

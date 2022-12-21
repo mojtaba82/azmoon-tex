@@ -1,0 +1,102 @@
+%\RequirePackage{framebox}
+\RequirePackage{tcolorbox}
+%\RequirePackage{overpic}
+\tcbuselibrary{skins}
+\logo[height=2cm,width=3cm]{logo-shahed.png}
+\newtcolorbox{headbox}[1][]{
+	arc=2pt,
+	bicolor,
+	left=1pt,
+	right=1pt,
+	top=1pt,
+	bottom=1pt,
+	boxsep=3pt,
+	colback=white,
+	before skip=2pt,
+	after skip=8pt,
+	boxrule=1pt,
+	colframe=black,
+	titlerule=0pt,
+	%	bottomtitle=-10pt,
+%	toptitle=-9pt,
+	titlerule=0pt,
+%	drop shadow=black!90!white,
+	width=7cm,
+	height=1cm,
+	#1
+}
+\fancypagestyle{shahed}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+	\large%
+	\fboxsep3pt%
+	\headwidth=\dimexpr \linewidth-2\fboxsep\relax%
+	\framebox[\linewidth]{%
+		\begin{minipage}{7cm}%
+			\begin{minipage}{4.5cm}%
+			\begin{headbox}[width=4.5cm]
+				\textbf{تاریخ: \hfill\exam@date}
+			\end{headbox}%
+			\end{minipage}%
+%			\hspace{.5cm}%
+			\begin{minipage}{2.5cm}%
+			\begin{headbox}[width=2.5cm]
+				\textbf{شماره: \hfill\chair@number}
+			\end{headbox}%
+			\end{minipage}%
+			\vspace*{6pt}%
+			%			\par
+			\begin{headbox}
+				\textbf{نام: \hfill\student@firstname\ \student@lastname}
+			\end{headbox}
+			%			\par
+			\begin{headbox}
+				\textbf{شعبه: \hfill\@branch}
+			\end{headbox}
+		\end{minipage}%
+		\begin{minipage}{\dimexpr\headwidth-10cm\relax}%
+			\centering%
+%			\settextfont{B Titr}
+%			\normalsize
+			\IfFileExists{\l@go}%
+			{}%
+			{%
+				\ClassWarning{azmoon}{\l@go\space file not exist.}{}%
+				\edef\l@go{\l@g@}%
+			}%
+			\includegraphics[width=\logo@width, height=\logo@height]{\l@go}
+			\\
+			\textbf{معاونت اداره کل و مدیریت آموزش و پرورش \@city}
+			\\\vspace{.3cm}
+			\textbf{\school@title{} \@school}
+		\end{minipage}%
+		\begin{minipage}{3cm}%
+			\hfill%
+%			\rlap{\includegraphics[width=3cm, height=4cm]{frame.png}}%
+%			\includegraphics[width=3cm, height=4cm]{aks.jpg}%
+			\IfFileExists{\student@photo}{%
+				\includegraphics[width=3cm, height=4cm]{\student@photo}%
+			}%
+			{\vrule height 4cm width 0pt
+%			    \includegraphics[width=3cm, height=4cm]{student.jpg}%
+		    }%
+%			\hspace{.3cm}
+		\end{minipage}%
+	}%
+	\\
+	\framebox[\linewidth]{\textbf{آزمون\ \ex@mturn\hfill درس \c@urse\hfill پایه \@grade\hfill سال تحصیلی \sch@olyear\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}\hfill وقت \answer@time}}
+	\vskip-\baselineskip%
+}
+	\fancyhead[RE]{%
+		\large%
+		\framebox[\linewidth]{%
+			\begin{headbox}[width=7cm]%
+				\textbf{نام: \hfill\student@firstname\ \student@lastname}%
+			\end{headbox}\hfill%
+			\begin{headbox}[width=3cm]%
+				\textbf{صفحه \hfill \thepage\ از \pageref{LastPage}}%
+			\end{headbox}%
+		}%
+	}%
+}

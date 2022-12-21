@@ -1,0 +1,100 @@
+\RequirePackage{frbox}
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+\newcommand{\dotrule}[1]{%
+	\parbox[t]{#1}{\dotfill}%
+}
+\newcommand\nameordot[2][]{%
+	\edef\namearg{#2}%
+	\edef\lenarg{#1}%
+	\ifx\namearg\empty%
+		\ifx\lenarg\empty%
+			\dotfill%
+		\else%
+			\dotrule{#1}%
+		\fi%
+	\else%
+		\namearg
+	\fi%
+}
+\newlength{\colwidth}
+\def\@fancyheadr{%
+		\large%
+\fbox{%
+	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
+		\textbf{شماره صندلی: \nameordot\ch@irnumber}\par
+		‎\textbf{نام و نام‌خانوادگی: \nameordot\student@name}\par
+		\textbf{نام پدر: \nameordot\studentf@thername}\par
+		\textbf{نام درس: \nameordot\c@urse}\par
+		\textbf{نام دبیر: \nameordot\teacher@name}
+	\end{minipage}%
+	\begin{minipage}{5pt}
+		\hfill
+	\end{minipage}%
+	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
+		\centering
+		\textbf{به نام خدا}
+		\par
+		\textbf{اداره آموزش و پرورش استان \nameordot\st@te}
+		\par
+		\textbf{اداره سنجش و ارزشیابی تحصیلی}
+		\par
+		\textbf{اداره آموزش و پرورش \nameordot\@city}
+		\par
+		\textbf{\school@title\ \nameordot\@school}
+	\end{minipage}%
+	\begin{minipage}{5pt}
+		\hfill
+	\end{minipage}%
+	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
+		\textbf{نوبت امتحان: \nameordot{\ex@mturn}}
+		\par
+		‎\textbf{پایه \nameordot[1.5cm]\@grade\ شعبه \nameordot\@branch}
+		\par
+		\textbf{تاریخ امتحان: \nameordot\exam@date}
+		\par
+		\textbf{شروع امتحان: \nameordot\ex@mtime}
+		\par
+		‎\textbf{مدت امتحان: \nameordot\answer@time}
+	\end{minipage}%
+}%
+\setlength\colwidth{\dimexpr(\linewidth-2pt-1cm)/2\relax}
+\tabcolsep0pt%
+\begin{tabular}{|p{.5cm}|p{\colwidth}|p{.5cm}|p{\colwidth}|}
+	\hline
+	\vskip-10pt\cellcolor{blue!25}\rotatebox[origin=c]{90}{تصحیح}%
+	&
+	\parbox[b]{\linewidth}{%
+		\vspace{5pt}
+		نام و نام‌خانوادگی دبیر:
+		\hfill
+		نمره به عدد:
+		\hspace*{1cm}\par\vspace{5pt}
+		تاریخ و امضا:
+		\hfill
+		نمره به حروف:
+		\hspace*{2.5cm}}
+	&
+	\cellcolor{blue!25}\rotatebox[origin=c]{90}{تجدید نظر}
+	&	
+	\parbox[b]{\linewidth}{%
+		\vspace{5pt}
+		نام و نام‌خانوادگی دبیر:
+		\hfill
+		نمره به عدد:
+		\hspace*{1cm}\par\vspace{5pt}
+		تاریخ و امضا:
+		\hfill
+		نمره به حروف:
+		\hspace*{2.5cm}}
+	\\ \hline
+\end{tabular}%
+%\nointerlineskip\vskip-\baselineskip%
+}
+\fancypagestyle{farsnohom}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[R]{%
+		\@fancyheadr
+	}%
+}

@@ -1,0 +1,91 @@
+%\RequirePackage{framebox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\logo[height=2cm,width=2.5cm]{logo-farasat.jpg}
+\newtcolorbox{headbox}[1][]{
+	arc=2pt,
+	bicolor,
+	left=1pt,
+	right=1pt,
+	top=1pt,
+	bottom=1pt,
+	boxsep=3pt,
+	colback=white,
+	before skip=2pt,
+	after skip=8pt,
+	boxrule=1pt,
+	colframe=black,
+	titlerule=0pt,
+	%	bottomtitle=-10pt,
+%	toptitle=-9pt,
+	titlerule=0pt,
+	drop shadow=black!90!white,
+	width=5cm,
+	height=1cm,
+	#1
+}
+\fancypagestyle{shfarasat}{%
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0cm}
+	\fancyhead[RO]{%
+		\large%
+		\fboxsep3pt%
+		\headwidth=\dimexpr \linewidth-2\fboxsep\relax%
+		\framebox[\linewidth]{%
+			\begin{minipage}{5cm}%
+				\begin{headbox}
+					\textbf{تاریخ: \hfill\exam@date}
+				\end{headbox}
+				%			\par
+				\begin{headbox}
+					\textbf{نام: \hfill\student@firstname}
+				\end{headbox}
+				%			\par
+				\begin{headbox}
+					\textbf{نام خانوادگی: \hfill\student@lastname}
+				\end{headbox}
+			\end{minipage}%
+			\begin{minipage}{\dimexpr\headwidth-10cm\relax}%
+				\baselineskip1.5\baselineskip%
+				\centering
+				\IfFileExists{\l@go}%
+				{}%
+				{%
+					\ClassWarning{azmoon}{\l@go{} file not exist.}{}%
+					\edef\l@go{\l@g@}%
+				}%
+				\includegraphics[width=\logo@width, height=\logo@height]{\l@go}
+				\\\vspace{-3mm}%
+				\textbf{مدیریت آموزش و پرورش \@city}
+				\\
+				\textbf{\school@title\ \@school}
+			\end{minipage}%
+			\begin{minipage}{5cm}%
+				\begin{headbox}
+					\textbf{تعداد صفحات: \hfill\pageref{LastPage}}
+				\end{headbox}
+				%			\par
+				\begin{headbox}
+					\textbf{شعبه: \hfill\@branch}
+				\end{headbox}
+				%			\par
+				\begin{headbox}
+					\textbf{شماره ردیف: }
+				\end{headbox}
+			\end{minipage}%
+		}%
+		\\
+		\framebox[\linewidth]{\textbf{آزمون\ \ex@mturn\hfill درس \c@urse\hfill پایه \@grade\hfill سال تحصیلی \sch@olyear\hfill وقت \answer@time}}
+		\vskip-\baselineskip%
+	}
+	\fancyhead[RE]{%
+		\framebox[\linewidth]{%
+		\begin{headbox}[width=7cm]%
+			\textbf{نام و نام خانوادگی: \hfill\student@name}%
+		\end{headbox}\hfill%
+		\begin{headbox}[width=2.3cm]%
+			\textbf{صفحه \thepage\ از \pageref{LastPage}}%
+		\end{headbox}%
+	}%	
+}%
+}

@@ -1,0 +1,75 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{frbox}[2018/06/11 version 0.1 by Mojtaba Baghban]
+\RequirePackage{pgfkeys}
+\RequirePackage{xcolor}
+\pgfkeys{%
+	/frbox/.cd,
+	width/.code={\boxwidth#1},
+	height/.code={\boxheight#1},
+	rightpad/.code={\brightpad#1},
+	leftpad/.code={\bleftpad#1},
+	bottompad/.code={\bbottompad#1},
+	toppad/.code={\btoppad#1},
+	pad/.style={rightpad=#1,leftpad=#1,toppad=#1,bottompad=#1},
+	hpad/.style={rightpad=#1,leftpad=#1},
+	vpad/.style={toppad=#1,bottompad=#1},
+	rightrulewidth/.code={\rightbrulewidth#1},
+	leftrulewidth/.code={\leftbrulewidth#1},
+	toprulewidth/.code={\topbrulewidth#1},
+	bottomrulewidth/.code={\bottombrulewidth#1},
+	rulewidth/.style={rightrulewidth=#1,leftrulewidth=#1,toprulewidth=1,bottomrulewidth=#1},
+	hrulewidth/.style={rightrulewidth=#1,leftrulewidth=#1},
+	vrulewidth/.style={toprulewidth=1,bottomrulewidth=#1},
+	backcolor/.store in=\backcolor,
+}%
+\newcommand{\frbox}[2][{}]{%
+	\newdimen\btoppad%
+	\setlength\btoppad{2pt}%
+	\newdimen\bleftpad%
+	\setlength\bleftpad{2pt}%
+	\newdimen\brightpad%
+	\setlength\brightpad{2pt}%
+	\newdimen\bbottompad%
+	\setlength\bbottompad{2pt}%
+	\newdimen\rightbrulewidth%
+	\rightbrulewidth.4pt%
+	\newdimen\leftbrulewidth%
+	\leftbrulewidth.4pt%
+	\newdimen\topbrulewidth%
+	\topbrulewidth.4pt%
+	\newdimen\bottombrulewidth%
+	\bottombrulewidth.4pt%
+	\newdimen\boxwidth%
+	\setlength\boxwidth{\linewidth}%
+	\newdimen\boxheight%
+	\setlength\boxheight{0pt}%
+	\def\backcolor{white}%
+	\pgfkeys{/frbox/.cd,#1}%
+	\newbox\innervbox%
+	\setbox\innervbox=\vbox\ifdim\boxheight>0pt to \boxheight\fi{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth
+		-\bleftpad-\brightpad\relax%
+		\linewidth=\hsize%
+		#2%
+	}%
+	\newbox\inhbox%
+	\setbox\inhbox=\hbox to \dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax{%
+		\hskip\brightpad\box\innervbox\hskip\bleftpad%
+	}%
+	\newbox\invbox%
+	\setbox\invbox=\vbox{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax
+		\vskip\bbottompad\box\inhbox\vskip\bbottompad%
+	}%
+	\newbox\outhbox%
+	\setbox\outhbox=\hbox to \boxwidth{%
+		\vrule width\leftbrulewidth\box\invbox\vrule width\rightbrulewidth%
+	}%
+	\newbox\totalvbox%
+	\setbox\totalvbox=\vbox{%
+		\hsize=\boxwidth%
+		\fboxsep0pt%
+		\hrule height\topbrulewidth\colorbox{\backcolor}{\box\outhbox}\hrule height\bottombrulewidth%
+	}%
+	\box\totalvbox%
+}

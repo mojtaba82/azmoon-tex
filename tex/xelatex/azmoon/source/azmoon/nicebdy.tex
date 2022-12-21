@@ -1,0 +1,62 @@
+\renewcommand*{\quesboxrule@color}{blue!90!white}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\tikzstyle{section} = [draw=blue, fill=blue!20, thick, rectangle, rounded corners]
+\setlength\headsep{3pt}
+\def\quesnumber@color{black!99.9}
+\def\quespoint@color{black!99.9}
+%\def\quesbox@color{blue!10}
+\newcommand{\@question}[4]{%
+\begin{tcolorbox}[
+	arc=3pt,
+	bicolor,
+	left=2pt,
+	right=2pt,
+	top=2pt,
+	bottom=2pt,
+	boxsep=0pt,
+	colback=\quesbox@color,
+	breakable=false,
+	before skip=0pt,
+	after skip=1pt,
+	boxrule=1pt,
+	colframe=\quesboxrule@color,
+	titlerule=0pt,
+%	bottomtitle=-10pt,
+	toptitle=-9pt,
+	titlerule=0pt,
+%	title={%
+%		\hspace*{10pt}%
+%		\tikz\node[rectangle,fill=\quesnumberbox@color,rounded corners=3pt, draw=\quesboxrule@color]{%
+%			\ifx#3\@nnil\else\vphantom{$#3$ نمره}\fi%
+%			\textcolor{\quesnumber@color}{#1}};%
+%		\hfill%
+%		\ifx#3\@nnil\else%
+%		\tikz\node[rectangle,fill=\quespointbox@color,rounded corners=3pt, draw=\quesboxrule@color]{\rl{\textcolor{\quespoint@color}{$#3$ نمره}}};%
+%		\hspace*{10pt}%
+%%		\hspace*{10pt}
+%		\fi%
+%	},
+	colbacktitle=\quesbox@color,
+%	coltitle=black
+	]%
+	\hspace{0cm}
+	\begin{tikzpicture}[baseline=(current bounding box.center)]
+		\draw[fill=blue!30!white] (0,0) circle(.25cm) node {#1};
+		    \ifx#4\@nnil\else%
+			    \foreach \st in {1,...,5} {
+						\draw[draw=black,thin]({96+(\st - 1) * 72}:.3) arc ({96+(\st - 1) * 72}:{96+(\st - 1) * 72 + 60}:.3) -- ({96+(\st - 1) * 72+60}:.35) arc ({96+(\st - 1) * 72+60}:{96+(\st - 1) * 72}:.35) -- cycle;
+			    }
+		        \foreach \st in {1,...,#4} {
+					\fill[fill=black]({96+(\st - 1) * 72}:.3) arc ({96+(\st - 1) * 72}:{96+(\st - 1) * 72 + 60}:.3) -- ({96+(\st - 1) * 72+60}:.35) arc ({96+(\st - 1) * 72+60}:{96+(\st - 1) * 72}:.35) -- cycle;
+		        }
+	        \fi%
+	\end{tikzpicture}
+	#2
+\end{tcolorbox}%
+}
+\newcommand{\@section}[1]{%
+	\centering\tikz\node [section] (section box){\rl{\textbf{#1}}};%
+	\vspace{-7pt}%
+	\par
+}

@@ -1,0 +1,144 @@
+\NeedsTeXFormat{LaTeX2e}
+%\ProvidesPackage{sciencefig}[2017/11/1 version 1.0.0 by Mojtaba Baghban]
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\RequirePackage{fp}
+\RequirePackage{amsmath}
+\RequirePackage{xkeyval}
+\RequirePackage{xstring}
+\RequirePackage{etoolbox}
+
+\newcommand{\calc@mixfrac}[3]
+{
+	\def\@mixfracval{}
+	\ifdimgreater{#1 pt}{0 pt}
+	{
+		\FPeval\@mixfracval{(#1)+((#2)/(#3))}
+	}
+	{
+		\FPeval\@mixfracval{(#1)-((#2)/(#3))}
+	}
+	\@mixfracval
+}
+
+\newcommand{\calc@frac}[2]
+{
+	\FPeval\@fracval{(#1)/(#2)}
+	\@fracval
+}
+
+\newenvironment{axisx}[1]
+{
+%	\noindent\ignorespace
+	\define@key{axisx}{start}{\def\axisx@startp{##1}}
+	\define@key{axisx}{end}{\def\axisx@endp{##1}}
+	\define@key{axisx}{unit}{\def\axisx@unit{##1}}
+	\define@key{axisx}{subpart}{\def\axisx@subpart{##1}}
+	
+	\presetkeys{axisx}{subpart=1}{}
+	
+	\setkeys{axisx}{#1}
+%	\def\startpoint{\axisx@start}
+%	\def\endpoint{\axisx@end}
+	\def\axisx@nextp{}
+	\FPeval\axisx@nextp{round(\axisx@startp + 1,0)}
+	\def\axisx@start{}
+	\FPeval\axisx@start{(1.1*\axisx@unit*\axisx@startp)}
+	\def\axisx@end{}
+	\FPeval\axisx@end{(1.1*\axisx@unit*\axisx@endp)}
+	\newcommand{\arc}[1]
+	{
+		\define@key{arc}{start}{\def\arc@startp{####1}}
+		\define@key{arc}{end}{\def\arc@endp{####1}}
+		\setkeys{arc}{##1}
+		\ifdimequal{\arc@startp pt}{\arc@endp pt}
+		{
+			\def\arc@controlpl{}
+			\FPeval\arc@controlpl{\arc@startp-1/2}
+			\def\arc@controlpr{}
+			\FPeval\arc@controlpr{\arc@startp+1/2}
+			\draw[->,ultra thick] (\axisx@unit*\arc@startp,0) .. controls (\axisx@unit*\arc@controlpl,1) and (\axisx@unit*\arc@controlpr,1) .. (\axisx@unit*\arc@endp,0);
+		}
+		{
+			\def\arc@controlp{}
+			\FPeval\arc@controlp{(\arc@startp+\arc@endp)/2}
+			\draw[->,ultra thick] (\axisx@unit*\arc@startp,0) .. controls (\axisx@unit*\arc@controlp,1) .. (\axisx@unit*\arc@endp,0);
+		}
+	}
+	\newcommand{\partitioning}[1]
+	{
+		\define@key{part}{start}{\def\part@startp{####1}}
+		\define@key{part}{end}{\def\part@endp{####1}}
+		
+		\define@key{part}{subpart}{\def\part@subpart{####1}}
+		\setkeys{part}{##1}
+		\def\part@step{}
+		\FPeval\part@step{1/\part@subpart}
+		\def\part@nextp{}
+		\FPeval\part@nextp{(\part@startp + \part@step)}
+		\IfInteger{\part@subpart}{}{\PackageError{sciencefig}{Number of subpart must be an integer}{}}
+		\foreach \x in {\part@startp,\part@nextp,...,\part@endp}
+			\draw (\axisx@unit*\x cm,0pt) -- (\axisx@unit*\x cm,-4pt);
+	}
+    \newcommand{\interval}[1]
+    {
+    	\define@key{interval}{start}{\def\interval@startp{####1}}
+    	\define@key{interval}{end}{\def\interval@endp{####1}}
+    	\define@key{interval}{startless}[none]{\def\interval@startp{1.1*\axisx@startp}}
+    	\define@key{interval}{endless}[none]{\def\interval@endp{1.1*\axisx@endp}}
+    	\define@key{interval}{height}{\def\interval@height{####1}}
+    	\define@choicekey*{interval}{startis}[\startis]{fill,empty}{}
+        \define@choicekey*{interval}{endis}[\endis]{fill,empty}{}
+%    	\define@boolkey{interval}[fillstart@]{frame}{}
+
+        \presetkeys{interval}{height=.3}{}
+        
+        \setkeys{interval}{##1}
+        
+        \ifdefined\startis
+        \IfStrEq{\startis}{fill}{\fill (\axisx@unit*\interval@startp,\interval@height) circle (.1cm);}{}
+        \IfStrEq{\startis}{empty}{\draw (\axisx@unit*\interval@startp,\interval@height) circle (.1cm);}{}
+        \fi
+        
+        \ifdefined\endis
+        \IfStrEq{\endis}{fill}{\fill (\axisx@unit*\interval@endp,\interval@height) circle (.1cm);}{}
+        \IfStrEq{\endis}{empty}{\draw (\axisx@unit*\interval@endp,\interval@height) circle (.1cm);}{}
+        \fi
+        
+%        \fill (\axisx@unit*\interval@startp,.3) circle (.1cm);
+        \draw [line width=.06cm] (\axisx@unit*\interval@startp,\interval@height) -- (\axisx@unit*\interval@endp,\interval@height);
+%        \draw (\axisx@unit*\interval@endp,.3) circle (.1cm);
+    }
+	\newcommand{\textnode}[2]
+	{
+		\define@key{text}{xpos}{\def\text@xpos{####1}}
+		\define@key{text}{ypos}{\def\text@ypos{####1}}
+		
+		\presetkeys{text}{ypos=1.5}{}
+		
+		\setkeys{text}{##1}
+		\node at (\axisx@unit*\text@xpos,\text@ypos)[shape=rectangle] {##2};
+	}
+	\newcommand{\findpoint}[2]
+	{
+		\draw[<-, ultra thick] (\axisx@unit*##1,0) -- (\axisx@unit*##1,.5)node[anchor=south] {##2};
+	}
+%	\newcommand{\findfracpoint}[2]
+%	{
+%		\FPeval\res{(#1)/(#2)}
+%		\findpoint{\res}{$\dfrac{##1}{##2}$}
+%		\findpoint{\FPeval\result{(##1)/(##2)}}{$\dfrac{##1}{##2}$}
+%	}
+	\begin{tikzpicture}
+	\draw[<->,ultra thick] (\axisx@start,0)--(\axisx@end,0);%node[right]{$x$};
+	\foreach \x in {\axisx@startp,\axisx@nextp,...,\axisx@endp}
+		\draw (\x*\axisx@unit cm,0pt) -- (\x*\axisx@unit cm,-8pt)node[anchor=north] {$\x$};
+	\partitioning{start=\axisx@startp,end=\axisx@endp,subpart=\axisx@subpart}
+}
+{
+	\end{tikzpicture}	
+%	\par\noindent
+%	\ignorespacesafterend
+}
+
