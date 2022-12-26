@@ -51,7 +51,7 @@
 				\end{headbox}
 			\end{minipage}%
 			\begin{minipage}{\dimexpr\headwidth-14cm\relax}%
-				\settextfont{B Titr}
+				\settextfont[BoldFont=B Titr.ttf]{B Titr.ttf}
 				\small
 				\centering
 				\IfFileExists{\l@go}%
@@ -83,14 +83,14 @@
 			\end{minipage}
 			\begin{minipage}{2.5cm}%
 				\hfill%
-				\IfFileExists{\student@photo}{%
-					\show\student@photo
-					\rlap{\includegraphics[width=3cm, height=3.9cm]{\student@photo}}%
-					\includegraphics[width=2.8cm, height=3.7cm]{frame.jpeg}%
-				}%
-			\IfFileExists{\student@photo}{%
+%				\IfFileExists{\student@photo}{%
+%					\show\student@photo
+%					\rlap{\includegraphics[width=3cm, height=3.9cm]{\student@photo}}%
+%					\includegraphics[width=2.8cm, height=3.7cm]{frame.jpeg}%
+%				}%
+			\IfFileExists{./\student@photo}{%
 				\includegraphics[width=3cm, height=4cm]{\student@photo}%
-			}%
+			}{}%
 %				{\includegraphics[width=2.8cm, height=3.7cm]{\student@photo}}%
 			\end{minipage}%
 		}%
