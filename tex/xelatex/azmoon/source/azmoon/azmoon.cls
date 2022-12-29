@@ -263,14 +263,14 @@
 \newcommand{\truesym}{%
 	\hspace{0cm}%
 	\begin{tikzpicture}[baseline={([yshift=-.9ex]current bounding box.center)}]
-	\draw[thick,rounded corners=1pt] (-.15,0) -- (0,-.15) -- (.3,.35);
+	\draw[thick,rounded corners=1pt,line join=round] (-.15,0) -- (0,-.15) -- (.3,.35);
 	\end{tikzpicture}
 }
 \newcommand{\falsesym}{%
 	\hspace{0cm}%
 	\begin{tikzpicture}[baseline={([yshift=-.9ex]current bounding box.center)}]
-	\draw[thick] (-.18,.18) -- (.18,-.18);
-	\draw[thick] (.18,.18) -- (-.18,-.18);
+	\draw[thick] (-.15,.15) -- (.15,-.15) (.15,.15) -- (-.15,-.15);
+%	\draw[thick] (.18,.18) -- (-.18,-.18);
 	\end{tikzpicture}
 }
 \newtotcounter{numques}
@@ -379,10 +379,10 @@
 		\begin{tikzpicture}[baseline={([yshift=-.7ex]current bounding box.center)}]
 		\draw (0,0) circle (.25);
 		\ifanswermode%
-		\draw[very thick,color=\answer@color,opacity=\falseopacity] (-.18,.18) -- (.18,-.18);
-		\draw[very thick,color=\answer@color,opacity=\falseopacity] (.18,.18) -- (-.18,-.18);
-		\draw[very thick,color=\answer@color,opacity=\trueopacity] (-.15,0) -- (0,-.15);
-		\draw[very thick,color=\answer@color,opacity=\trueopacity] (0,-.15) -- (.3,.35);
+		\draw[very thick,color=\answer@color,opacity=\falseopacity] (-.15,.15) -- (.15,-.15) (.15,.15) -- (-.15,-.15);
+%		\draw[very thick,color=\answer@color,opacity=\falseopacity] (.18,.18) -- (-.18,-.18);
+		\draw[very thick,color=\answer@color,opacity=\trueopacity,rounded corners=1pt,line join=round] (-.15,0) -- (0,-.15) -- (.3,.35);
+%		\draw[very thick,color=\answer@color,opacity=\trueopacity] (0,-.15) -- (.3,.35);
 		\fi
 		\end{tikzpicture}%
 	}%
