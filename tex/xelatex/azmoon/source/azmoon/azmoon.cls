@@ -401,6 +401,8 @@
 	\ifx\res\@istrue#2\else#3\fi%
 }
 \edef\@blanklength{2cm}
+\edef\blank@style{dash}
+\def\blankstyle#1{\edef\blank@style{#1}}
 \newlength{\@blank@length}
 \setlength\@blank@length{\@blanklength}
 \newcommand*{\blanklengrh}[1]{\edef\@blanklength{#1}}
@@ -418,13 +420,14 @@
 	}%
 }
 \def\blanktwoarg[#1][#2]{%
+	\edef\blank@space{space}
+	\edef\blank@dash{dash}
 	\IfDimen{#1}%
 		{\def\@len{#1}\def\@text{#2}}%
 		{\def\@len{#2}\def\@text{#1}}%	
-	\ifanswermode{\rlap{\hdashrule{\@len}{.5pt}{1pt 1pt}}{\makebox[\@len]{\large\color{\answer@color}\@text}}\ }%
+	\ifanswermode{\rlap{\ifx\blank@style\blank@dash\hdashrule{\@len}{.5pt}{1pt 1pt}\ \else\ifx\blank@style\blank@space\hspace{\@len}\else\hspace{\@len}\fi\fi}{\makebox[\@len]{\large\color{\answer@color}\@text}}\ }%
 	\else%
-%	\hdashrule{\@len}{.5pt}{1pt 1pt}\ %
-       \hspace{\@len}
+	\ifx\blank@style\blank@dash\hdashrule{\@len}{.5pt}{1pt 1pt}\ \else\ifx\blank@style\blank@space\hspace{\@len}\else\hspace{\@len}\fi\fi%
 	\fi%
 }
 \edef\@blankcirclength{0.7em}%
