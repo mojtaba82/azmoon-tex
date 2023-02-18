@@ -280,6 +280,7 @@
 	\setcounter{numques}{0}%
 	\setcounter{numbonques}{0}%
 	\def\@point{\@nil}%
+	\def\@bonpoint{\@nil}%
 	\pgfkeys{
 		/question/.cd,
 		stars/.store in=\st@rs,
@@ -314,15 +315,36 @@
 			\ClassError{azmoon}{command \string\@question\ is not defined}{}
 		\fi%
 	}%
+	\pgfkeys{
+		/bonusquestion/.cd,
+		stars/.store in=\st@rs,
+		1s/.value forbidden,
+		1s/.style={stars=1},
+		2s/.value forbidden,
+		2s/.style={stars=2},
+		3s/.value forbidden,
+		3s/.style={stars=3},
+		4s/.value forbidden,
+		4s/.style={stars=4},
+		5s/.value forbidden,
+		5s/.style={stars=5},
+		.unknown/.code={\edef\@bonpoint{\pgfkeyscurrentname}}
+	}
 	\newcommand{\bonusquestion}[2][\@nil]{%
-		\def\@point{##1}%
+		\def\st@rs{\@nil}%
+		\def\bonquesopt{##1}%
+		\ifx\bonquesopt\@nnil\else%
+			\pgfkeys{/bonusquestion/.cd,##1}%
+	%		\LTR\meaning\@point%
+		\fi%
+		% \def\@point{##1}%
 		\def\ques@body{##2}%
 		\ifx\@point\@nnil\else%
 %		\global\addtolength{\sumpoint}{##1pt}%
 		\fi%
 		\stepcounter{numbonques}%
 		\ifdefined\@question%
-		\@question{\thenumbonques}{\ques@body}{\@point}{\@nil}%
+		\@question{\thenumbonques}{\ques@body}{\@point}{\st@rs}%
 		\else%
 		\ClassError{azmoon}{command \string\@question\  isnot defined}{}
 		\fi%
@@ -501,8 +523,8 @@
 		\expandafter\setbox\csname parta\the\num@pair\endcsname=\hbox{%
 			\begin{tikzpicture}[remember picture]%
 			\ifisRTL \setRTL\fi%
-			\fill (0,0) circle (.1);
-			\node[minimum height=0.5cm,minimum width=1cm,draw, rounded corners=.5ex, anchor=west] at (.2,0)(a\the\num@pair){%
+			\node[circle, fill, minimum size=.2cm, inner sep=0pt] (0,0) (ac\the\num@pair){};
+			\node[minimum height=0.5cm,minimum width=1cm,draw, rounded corners=.5ex, anchor=\ifisRTL west\else east\fi] at (\ifisRTL\else-\fi.2,0)(a\the\num@pair){%
 				\begin{varwidth}{\linewidth}%
 					##1%
 				\end{varwidth}%
@@ -518,8 +540,8 @@
 		\expandafter\setbox\csname partb\the\num@pair\endcsname=\hbox{%
 			\begin{tikzpicture}[remember picture]%
 			\ifisRTL \setRTL\fi%
-			\fill (0,0) circle (.1);
-			\node[minimum height=0.5cm,minimum width=1cm,draw, rounded corners=.5ex, anchor=east] at (-.2,0)(b\the\num@pair){%
+			\node[circle, fill, minimum size=.2cm, inner sep=0pt] (0,0) (bc\the\num@pair){};
+			\node[minimum height=0.5cm,minimum width=1cm,draw, rounded corners=.5ex, anchor=\ifisRTL east\else west\fi] at (\ifisRTL-\else\fi.2,0)(b\the\num@pair){%
 				\begin{varwidth}{\linewidth}%
 					##2%
 				\end{varwidth}%
@@ -588,7 +610,7 @@
 	\newbox\matching@box%
 	\setbox\matching@box=\vbox{\hbox{%
 		\box\parta%
-		\hspace{4cm}%
+		\hspace{\ml@part@space}%
 		\box\partb%
 	}}%
 	\box\matching@box
@@ -597,7 +619,7 @@
 		\foreach \x in {0,...,\num@pair}{%
 			\expandafter\ifx\csname parta\x\endcsname\relax\relax\else%
 			\expandafter\ifx\csname partb\x\endcsname\relax\relax\else%
-			\draw[\answer@color, very thick, out=\ifisRTL 180\else 0\fi, in=\ifisRTL 0\else 180\fi] (a\x.\ifisRTL west\else east\fi) to (b\x.\ifisRTL east\else west\fi);
+			\draw[\answer@color, very thick, out=\ifisRTL 180\else 0\fi, in=\ifisRTL 0\else 180\fi] (ac\x.center) to (bc\x.center);
 			\fi\fi%
 		}%
 		\end{tikzpicture}%

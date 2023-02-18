@@ -26,18 +26,6 @@
 %	bottomtitle=-10pt,
 	toptitle=-9pt,
 	titlerule=0pt,
-%	title={%
-%		\hspace*{10pt}%
-%		\tikz\node[rectangle,fill=\quesnumberbox@color,rounded corners=3pt, draw=\quesboxrule@color]{%
-%			\ifx#3\@nnil\else\vphantom{$#3$ نمره}\fi%
-%			\textcolor{\quesnumber@color}{#1}};%
-%		\hfill%
-%		\ifx#3\@nnil\else%
-%		\tikz\node[rectangle,fill=\quespointbox@color,rounded corners=3pt, draw=\quesboxrule@color]{\rl{\textcolor{\quespoint@color}{$#3$ نمره}}};%
-%		\hspace*{10pt}%
-%%		\hspace*{10pt}
-%		\fi%
-%	},
 	colbacktitle=\quesbox@color,
 %	coltitle=black
 	]%
@@ -57,14 +45,15 @@
 		\hspace{1mm}%
 		\begin{tikzpicture}[baseline=(current bounding box.center)]
 			% \draw[rounded corners] (0, 0) rectangle (4, 1) {} node {$#3$ نمره};
-			\node[rectangle, rounded corners, draw=blue] {\rl{$#3$}};
+			\node[rectangle, rounded corners, draw=blue] {\rl{$#3$ نمره}};
 		\end{tikzpicture}
 	\fi%
 	#2
 \end{tcolorbox}%
 }
 \newcommand{\@section}[1]{%
+	\vspace{7pt}
 	\centering\tikz\node [section] (section box){\rl{\textbf{#1}}};%
-	\vspace{-7pt}%
+	\vspace{7pt}%
 	\par
 }

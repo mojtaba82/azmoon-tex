@@ -21,55 +21,55 @@
 \def\@fancyheadr{%
 		\large%
 \fbox{%
-	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
-		\textbf{شماره صندلی: \nameordot\ch@irnumber}\par
-		‎\textbf{نام و نام‌خانوادگی: \nameordot\student@name}\par
-		\textbf{نام پدر: \nameordot\studentf@thername}\par
-		\textbf{نام درس: \nameordot\c@urse}\par
+	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-70pt\relax}%
+		\textbf{شماره صندلی: \nameordot\ch@irnumber}\par\vspace{3mm}
+		\textbf{نام و نام‌خانوادگی: \nameordot\student@name}\par\vspace{3mm}
+		\textbf{نام پدر: \nameordot\student@fathername}\par\vspace{3mm}
+		\textbf{نام درس: \nameordot{\hfill\c@urse}}\par\vspace{3mm}
 		\textbf{نام دبیر: \nameordot\teacher@name}
 	\end{minipage}%
-	\begin{minipage}{5pt}
+	\begin{minipage}{15pt}
 		\hfill
 	\end{minipage}%
 	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
 		\centering
 		\textbf{به نام خدا}
-		\par
+		\par\vspace{3mm}
 		\textbf{اداره آموزش و پرورش استان \nameordot\st@te}
-		\par
+		\par\vspace{3mm}
 		\textbf{اداره سنجش و ارزشیابی تحصیلی}
-		\par
+		\par\vspace{3mm}
 		\textbf{اداره آموزش و پرورش \nameordot\@city}
-		\par
+		\par\vspace{3mm}
 		\textbf{\school@title\ \nameordot\@school}
 	\end{minipage}%
-	\begin{minipage}{5pt}
+	\begin{minipage}{15pt}
 		\hfill
 	\end{minipage}%
 	\begin{minipage}{.3333\dimexpr\linewidth-2\fboxsep-2\fboxrule-10pt\relax}%
-		\textbf{نوبت امتحان: \nameordot{\ex@mturn}}
-		\par
-		‎\textbf{پایه \nameordot[1.5cm]\@grade\ شعبه \nameordot\@branch}
-		\par
-		\textbf{تاریخ امتحان: \nameordot\exam@date}
-		\par
+		\textbf{نوبت امتحان: \nameordot{\hfill\ex@mturn}}
+		\par\vspace{3mm}
+		\textbf{پایه \nameordot[1.5cm]\@grade\ شعبه \nameordot\@branch}
+		\par\vspace{3mm}
+		\textbf{تاریخ امتحان: \nameordot{\hfill\exam@date}}
+		\par\vspace{3mm}
 		\textbf{شروع امتحان: \nameordot\ex@mtime}
-		\par
-		‎\textbf{مدت امتحان: \nameordot\answer@time}
+		\par\vspace{3mm}
+		\textbf{مدت امتحان: \nameordot{\hfill\answer@time}}
 	\end{minipage}%
 }%
 \setlength\colwidth{\dimexpr(\linewidth-2pt-1cm)/2\relax}
 \tabcolsep0pt%
 \begin{tabular}{|p{.5cm}|p{\colwidth}|p{.5cm}|p{\colwidth}|}
 	\hline
-	\vskip-10pt\cellcolor{blue!25}\rotatebox[origin=c]{90}{تصحیح}%
+	\vskip-10pt\cellcolor{blue!25}\rotatebox[origin=c]{90}{تصحیح\hspace*{2mm}}%
 	&
-	\parbox[b]{\linewidth}{%
+	\parbox[c][][b]{\linewidth}{%
 		\vspace{5pt}
 		نام و نام‌خانوادگی دبیر:
 		\hfill
 		نمره به عدد:
-		\hspace*{1cm}\par\vspace{5pt}
+		\hspace*{1cm}\par\vspace*{5mm}
 		تاریخ و امضا:
 		\hfill
 		نمره به حروف:
@@ -77,12 +77,12 @@
 	&
 	\cellcolor{blue!25}\rotatebox[origin=c]{90}{تجدید نظر}
 	&	
-	\parbox[b]{\linewidth}{%
+	\parbox[c][][b]{\linewidth}{%
 		\vspace{5pt}
 		نام و نام‌خانوادگی دبیر:
 		\hfill
 		نمره به عدد:
-		\hspace*{1cm}\par\vspace{5pt}
+		\hspace*{1cm}\par\vspace*{5mm}
 		تاریخ و امضا:
 		\hfill
 		نمره به حروف:
@@ -93,6 +93,7 @@
 }
 \fancypagestyle{farsnohom}{%
 	\fancyhf{}
+	% \renewcommand{\baselinestretch}{1.5}
 	\renewcommand{\headrulewidth}{0cm}
 	\fancyhead[R]{%
 		\@fancyheadr
