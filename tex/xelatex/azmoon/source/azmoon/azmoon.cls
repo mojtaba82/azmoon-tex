@@ -344,7 +344,7 @@
 		\fi%
 		\stepcounter{numbonques}%
 		\ifdefined\@question%
-		\@question{\thenumbonques}{\ques@body}{\@point}{\st@rs}%
+		\@question{\thenumbonques}{\ques@body}{\@bonpoint}{\st@rs}%
 		\else%
 		\ClassError{azmoon}{command \string\@question\  isnot defined}{}
 		\fi%
