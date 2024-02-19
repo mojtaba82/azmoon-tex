@@ -390,13 +390,13 @@
 	\fi%
 }%
 \newcommand{\tf}[1][]{
-		\def\value{#1}%
+		\def\argvalue{#1}%
 		\def\truevalue{t}%
 		\def\falsevalue{f}%
 		\def\trueopacity{0}%
 		\def\falseopacity{0}%
-		\ifx\value\falsevalue\def\falseopacity{1}\fi%
-		\ifx\value\truevalue\def\trueopacity{1}\fi%
+		\ifx\argvalue\falsevalue\def\falseopacity{1}\fi%
+		\ifx\argvalue\truevalue\def\trueopacity{1}\fi%
 		\hspace{0cm}%
 		\begin{tikzpicture}[baseline={([yshift=-.7ex]current bounding box.center)}]
 		\draw (0,0) circle (.25);
@@ -466,11 +466,11 @@
 	\IfDimen{#1}%
 	{\def\@len{#1}\def\@text{#2}}%
 	{\def\@len{#2}\def\@text{#1}}%	
-	\begin{tikzpicture}[baseline={([yshift=-.8ex]current bounding box.center)}]
+	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\draw (0,0) circle (\@len) node[pos=.5] {\ifanswermode \color{\answer@color} \@text \fi};
 	\end{tikzpicture}%
 }
-\edef\@blankreclength{1.3em}%
+\edef\@blankreclength{1.1em}%
 \newcommand\blankreclength[1]{\edef\@blankreclength{#1}}
 \def\blankrec{%
 	\@ifnextchar[{\blankreconearg}{\blankrectwoarg[\@blankreclength][]}%
@@ -484,7 +484,7 @@
 	\IfDimen{#1}%
 	{\def\@len{#1}\def\@text{#2}}%
 	{\def\@len{#2}\def\@text{#1}}%	
-	\begin{tikzpicture}[baseline={([yshift=-.8ex]current bounding box.center)}]
+	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
 	\draw (0,0) rectangle (\@len,\@len) node[pos=.5] {\ifanswermode \color{\answer@color} \@text \fi};
 	\end{tikzpicture}%
 }
@@ -628,14 +628,18 @@
 
 
 \newcounter{numparts}%
+\newcounter{numpart}%
 \newcounter{curpart}%
 \newlength{\partlength}
 \setlength{\partlength}{\linewidth}
+\newlength{\verticalspace}
+\setlength{\verticalspace}{0pt}
 \newif\if@labeling
 \@labelingtrue
 \pgfkeys{
 	/parts/.cd,
 	numcols/.store in=\num@cols,
+	vertical space/.code={\setlength{\verticalspace}{#1}},
 	label type/.store in=\label@type,
 	1/.value forbidden,
 	1/.style={numcols=1},
@@ -662,38 +666,55 @@
 	\def\numcols##1{%
 		\def\num@cols{##1}%
 		\if@labeling%
-			\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .55cm\relax}%
+			\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .3cm\relax}%
 		\else%
 			\setlength{\partlength}{\dimexpr \linewidth / \num@cols-\partsep\relax}%
 		\fi%
 	}
 	\if@labeling%
-	\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .55cm\relax}%
+	\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .3cm\relax}%
 	\else%
 	\setlength{\partlength}{\dimexpr \linewidth / \num@cols-\partsep\relax}%
 	\fi%
 	\par
 	\setcounter{numparts}{0}%
+	\setcounter{numpart}{0}%
 	\setcounter{curpart}{0}%
-	\renewcommand{\part}[2][]{%
+% 	\renewcommand{\part}[2][]{%
+% 		\stepcounter{numparts}%
+% 		\stepcounter{curpart}%
+% 		\ifnum\num@cols>1%
+% 			\begin{minipage}[t]{\partlength}%
+% 				\if@labeling\item\fi ##2%
+% 			\end{minipage}%
+% 			\if@labeling\else\hskip\partsep\fi%
+% 		\else%
+% 			\if@labeling\item\fi {##2}%
+% 		\fi%
+% 		\ifnum\value{curpart}=\num@cols%
+% 		\setcounter{curpart}{0}\par\else\hfill\fi%
+% 	}%
+	\renewcommand{\part}[1]{%
 		\stepcounter{numparts}%
+		\stepcounter{numpart}%
 		\stepcounter{curpart}%
 		\ifnum\num@cols>1%
 			\begin{minipage}[t]{\partlength}%
-				\if@labeling\item\fi ##2%
+				\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\@Alph{\value{numpart}})}\else\parbox[b]{1.5em}{\hfill(\@Alph{\value{numpart}}}\fi\fi\ ##1%
 			\end{minipage}%
 			\if@labeling\else\hskip\partsep\fi%
 		\else%
-			\if@labeling\item\fi {##2}%
+			\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\@Alph{\value{numpart}})}\else\parbox[b]{1.5em}{\hfill(\@Alph{\value{numpart}}}\fi\fi\ ##1%
 		\fi%
+		\ifdim\verticalspace>0pt\vspace{\verticalspace}\fi%
 		\ifnum\value{curpart}=\num@cols%
 		\setcounter{curpart}{0}\par\else\hfill\fi%
 	}%
-		\if@labeling\begin{enumerate}[label=\label@type,nosep,topsep=0pt,leftmargin=*, labelsep=2pt]\fi%
+% 		\if@labeling\begin{enumerate}[label=\label@type,nosep,topsep=0pt,leftmargin=*, labelsep=2pt]\fi%
 	}%
 	{%
-	\if@labeling\end{enumerate}\fi%
-	\setcounter{curpart}{0}%
+% 	\if@labeling\end{enumerate}\fi%
+% 	\setcounter{curpart}{0}%
 }%
 \newenvironment{filling}[1][1]{%
 \newcommand{\fillin}[1]{%
@@ -708,6 +729,8 @@
 \newif\if@checkbox%
 \newif\if@randomchoicesort%
 \@randomchoicesortfalse%
+\newif\if@choicelabeling
+\@choicelabelingtrue
 \def\randomchoicesort{\@randomchoicesorttrue}
 \def\manualchoicesort{\@randomchoicesortfalse}
 \pgfkeys{
@@ -726,9 +749,9 @@
 	6/.value forbidden,
 	6/.style={numcols=6},
 	label/.value forbidden,
-	label/.code={\@labelingtrue},
+	label/.code={\@choicelabelingtrue},
 	without label/.value forbidden,
-    without label/.code={\@labelingfalse},
+    without label/.code={\@choicelabelingfalse},
 	checkbox/.value forbidden,
 	checkbox/.code={\@checkboxtrue},
 	without checkbox/.value forbidden,
@@ -750,7 +773,7 @@
 	\@choice[t]{##1}
 	}
 %    \meaning\num@cols
-    \edef\multichoice@opts{\num@cols,\if@labeling label\else without label\fi}%
+    \edef\multichoice@opts{\num@cols,\if@choicelabeling label\else without label\fi}%
 	\expandafter\parts\expandafter[\multichoice@opts]
 	}
 	{%
@@ -831,9 +854,9 @@
 %\settextfont[Scale=.9,BoldFont=Mikhak-Bold.ttf]{Mikhak-Medium.ttf}
 %\setdigitfont[Scale=.9,BoldFont=Mikhak-Bold.ttf]{Mikhak-Medium.ttf}
 %\setlatintextfont[Scale=.9,BoldFont=Mikhak-Bold.ttf]{Mikhak-Medium.ttf}
-\settextfont[Scale=.9,BoldFont=Mikhak-DS2-Bold.ttf]{Mikhak-DS2-Medium.ttf}
-\setdigitfont[Scale=.9,BoldFont=Mikhak-DS2-Bold.ttf]{Mikhak-DS2-Medium.ttf}
-\setlatintextfont[Scale=.9,BoldFont=Mikhak-DS2-Bold.ttf]{Mikhak-DS2-Medium.ttf}
+\settextfont[Scale=.9,BoldFont=Mikhak-DS1-Bold.ttf]{Mikhak-DS1-Medium.ttf}
+\setdigitfont[Scale=.9,BoldFont=Mikhak-DS1-Bold.ttf]{Mikhak-DS1-Medium.ttf}
+\setlatintextfont[Scale=.9,BoldFont=Mikhak-DS1-Bold.ttf]{Mikhak-DS1-Medium.ttf}
 \linespread{1.5}
 \setlength{\parindent}{0cm}
 }

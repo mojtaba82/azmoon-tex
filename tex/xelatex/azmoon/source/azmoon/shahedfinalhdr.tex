@@ -4,6 +4,7 @@
 \tcbuselibrary{skins}
 \logo[height=2cm,width=3cm]{logo-shahed-gomnam.jpg}
 \newtcolorbox{headbox}[1][]{
+    valign=center,
 	arc=2pt,
 	bicolor,
 	left=1pt,
@@ -12,8 +13,8 @@
 	bottom=1pt,
 	boxsep=3pt,
 	colback=white,
-	before skip=2pt,
-	after skip=8pt,
+	before skip=0pt,
+	after skip=0pt,
 	boxrule=1pt,
 	colframe=black,
 	titlerule=0pt,
@@ -21,7 +22,7 @@
 %	toptitle=-9pt,
 	titlerule=0pt,
 %	drop shadow=black!90!white,
-	width=7cm,
+	width=6.3cm,
 	height=1cm,
 	#1
 }
@@ -33,29 +34,43 @@
 	\fboxsep3pt%
 	\headwidth=\dimexpr \linewidth-2\fboxsep\relax%
 	\framebox[\linewidth]{%
-		\begin{minipage}{7cm}%
-			\begin{minipage}{4.5cm}%
-			\begin{headbox}[width=4.5cm]
-				\textbf{تاریخ: \hfill\exam@date}
+		\begin{minipage}{6.3cm}%
+% 			\begin{minipage}{3.5cm}%
+% 			\begin{headbox}[width=3.5cm]
+% 				\textbf{تاریخ: \hfill\exam@date}
+% 			\end{headbox}%
+% 			\end{minipage}%
+% 			\hspace{.1cm}%
+% 			\begin{minipage}{2.4cm}%
+% 			\begin{headbox}[width=2.4cm]
+% 				\textbf{شماره: \hfill\chair@number}
+% 			\end{headbox}%
+% 			\end{minipage}%
+% 			\vspace{2pt}%
+			\begin{minipage}{1cm}%
+			\begin{headbox}[width=1cm]
+				\textbf{\hfil\chair@number\hfil}
 			\end{headbox}%
 			\end{minipage}%
-%			\hspace{.5cm}%
-			\begin{minipage}{2.5cm}%
-			\begin{headbox}[width=2.5cm]
-				\textbf{شماره: \hfill\chair@number}
+			\hspace{.1cm}%
+			\begin{minipage}{5.2cm}%
+			\begin{headbox}[width=5.2cm]
+				\textbf{\student@firstname\hfill\student@lastname}
 			\end{headbox}%
 			\end{minipage}%
-			\vspace*{6pt}%
-			%			\par
+			\vspace{2pt}%
 			\begin{headbox}
-				\textbf{نام: \hfill\student@firstname\ \student@lastname}
-			\end{headbox}
-			%			\par
-			\begin{headbox}
-				\textbf{شعبه: \hfill\@branch}
+				\textbf{\@grade\hfill\@branch}
+			\end{headbox}%
+			\vspace{2pt}%
+			\begin{headbox}[height=1.7cm]
+				\textbf{نمره:} \dotfill
+				\\[.3cm]%
+				\textbf{نمره پس از بازبینی:} \dotfill
 			\end{headbox}
 		\end{minipage}%
-		\begin{minipage}{\dimexpr\headwidth-10cm\relax}%
+		\hspace{.2cm}%
+		\begin{minipage}{\dimexpr\headwidth-13cm\relax}%
 			\centering%
 %			\settextfont{B Titr}
 %			\normalsize
@@ -67,11 +82,32 @@
 			}%
 			\includegraphics[width=\logo@width, height=\logo@height]{\l@go}
 			\\
-			\textbf{معاونت اداره کل و مدیریت آموزش و پرورش \@city}
+			\textbf{مدیریت آموزش و پرورش \@city}
 			\\\vspace{.3cm}
 			\textbf{\school@title{} \@school}
 		\end{minipage}%
-		\begin{minipage}{3cm}%
+		\hspace{.2cm}%
+		\begin{minipage}{6.3cm}%
+		    \begin{minipage}{3.2cm}
+		    \begin{headbox}[width=3.2cm,height=1.7cm]
+					\Large
+					\hfil\textbf{سال تحصیلی}\hfil
+					\\[.2cm]
+					\centering\textbf{\sch@olyear}
+			\end{headbox}
+				\vspace{2pt}%
+				\begin{headbox}[width=3.2cm, height=1cm]
+					\centering\Large
+					\textbf{\ex@mturn}
+				\end{headbox}
+				\vspace{2pt}%
+				\begin{headbox}[width=3.2cm]
+					\centering\Large
+					\textbf{\exam@date}
+			\end{headbox}
+		    \end{minipage}%
+		    \hfill%
+			\begin{minipage}{3cm}
 			\hfill%
 %			\rlap{\includegraphics[width=3cm, height=4cm]{frame.png}}%
 %			\includegraphics[width=3cm, height=4cm]{aks.jpg}%
@@ -80,6 +116,7 @@
 			}%
 			{\vrule height 4cm width 0pt}%
 %			\hspace{.3cm}
+			\end{minipage}
 		\end{minipage}%
 	}%
 	\\
@@ -89,12 +126,25 @@
 	\fancyhead[RE]{%
 		\large%
 		\framebox[\linewidth]{%
-			\begin{headbox}[width=7cm]%
-				\textbf{نام: \hfill\student@firstname\ \student@lastname}%
-			\end{headbox}\hfill%
+		\begin{minipage}{1cm}%
+		\begin{headbox}[width=1cm]
+			\textbf{\hfil\chair@number\hfil}
+		\end{headbox}%
+		\end{minipage}%
+		\hspace{.1cm}%
+		\begin{minipage}{5.2cm}%
+		\begin{headbox}[width=5.2cm]
+			\textbf{\student@firstname\hfill\student@lastname}
+		\end{headbox}%
+		\end{minipage}\hfill%
+% 			\begin{headbox}[width=7cm]%
+% 				\textbf{نام: \hfill\student@firstname\ \student@lastname}%
+% 			\end{headbox}\hfill%
+		\begin{minipage}{3cm}%
 			\begin{headbox}[width=3cm]%
-				\textbf{صفحه \hfill \thepage\ از \pageref{LastPage}}%
+				\textbf{صفحه \hfill \thepage\hfill از \hfill\pageref{LastPage}}%
 			\end{headbox}%
+		\end{minipage}
 		}%
 	}%
 }
