@@ -140,9 +140,9 @@
 \newcommand*\teacher@title{معلم}
 \newcommand*\teacher@name{}
 \newcommand*\student@name{}
-\newcommand*\student@firstname{}
-\newcommand*\student@lastname{}
-\newcommand*\student@fathername{}
+\newcommand*\student@firstname{\@nil}
+\newcommand*\student@lastname{\@nil}
+\newcommand*\student@fathername{\@nil}
 \newcommand*\student@code{}
 \newcommand*\ch@irnumber{}
 \newcommand*\c@urse{}
@@ -154,8 +154,8 @@
 \newcommand*\examcode[1]{\renewcommand*\@examcode{#1}}
 \newcommand*\me@surementtype{}
 \newcommand*\@topic{}
-\newcommand*\@grade{}
-\newcommand*\@branch{}
+\newcommand*\@grade{\@nil}
+\newcommand*\@branch{\@nil}
 \newcommand*\@field{}
 \newcommand*\school@title{مدرسه}
 \newcommand*\@school{}
@@ -675,14 +675,15 @@
 		\stepcounter{numparts}%
 		\stepcounter{numpart}%
 		\stepcounter{curpart}%
-		\ifnum\num@cols>1%
-			\begin{minipage}[t]{\partlength}%
-				\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi\fi\ ##1%
-			\end{minipage}%
-			\if@labeling\else\hskip\partsep\fi%
-		\else%
-			\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi\fi\ ##1%
-		\fi%
+% 		\ifnum\num@cols>1\minipage[t]{\partlength}\fi%
+		\minipage[t]{\partlength}
+				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
+		\endminipage
+% 		\ifnum\num@cols>1\endminipage\fi%
+% 			\if@labeling\else\hskip\partsep\fi%
+% 		\else%
+% 			\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
+% 		\fi%
 		\ifdim\verticalspace>0pt\vspace{\verticalspace}\fi%
 		\ifnum\value{curpart}=\num@cols%
 		\setcounter{curpart}{0}\par\else\fi%
@@ -758,14 +759,13 @@
 		\stepcounter{choicenumparts}%
 		\stepcounter{choicenumpart}%
 		\stepcounter{choicecurpart}%
-		\ifnum\choicenum@cols>1%
-			\begin{minipage}[t]{\choicepartlength}%
+		\ifnum\choicenum@cols>1\minipage[t]{\choicepartlength}\fi%
 				\if@choicelabeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\choicelabel@type\endcsname{choicenumpart})}\else\parbox[b]{1.5em}{\hfill(\csname\choicelabel@type\endcsname{choicenumpart}}\fi\fi\ ##1%
-			\end{minipage}%
+			\ifnum\choicenum@cols>1\endminipage\fi%%
 % 			\if@choicelabeling\else\hskip\choicepartsep\fi%
-		\else%
-			\if@choicelabeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\choicelabel@type\endcsname{choicenumpart})}\else\parbox[b]{1.5em}{\hfill(\csname\choicelabel@type\endcsname{choicenumpart}}\fi\fi\ ##1%
-		\fi%
+% 		\else%
+% 			\if@choicelabeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\choicelabel@type\endcsname{choicenumpart})}\else\parbox[b]{1.5em}{\hfill(\csname\choicelabel@type\endcsname{choicenumpart}}\fi\fi\ ##1%
+% 		\fi%
 		\ifdim\choiceverticalspace>0pt\vspace{\choiceverticalspace}\fi%
 		\ifnum\value{choicecurpart}=\choicenum@cols%
 		\setcounter{choicecurpart}{0}\par\else\fi%

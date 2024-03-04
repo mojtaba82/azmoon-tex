@@ -10,7 +10,7 @@
 	right=1pt,
 	top=1pt,
 	bottom=1pt,
-	boxsep=8pt,
+	boxsep=3pt,
 	colback=white,
 	before skip=2pt,
 	after skip=8pt,
@@ -22,14 +22,15 @@
 	titlerule=0pt,
 %	drop shadow=black!90!white,
 	width=7cm,
-	% height=1cm,
+	height=1cm,
+	valign=center,
 	#1
 }
 \fancypagestyle{nice}{%
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0cm}
 	\fancyhead[RO]{%
-	\large%
+	\Large%
 	\fboxsep3pt%
 	\headwidth=\dimexpr \linewidth-2\fboxsep\relax%
 	\begin{tcolorbox}[
@@ -53,26 +54,26 @@
 		colbacktitle=\quesbox@color,
 	%	coltitle=black
 		]%
-		\begin{minipage}{7cm}%
+		\begin{minipage}{ 7cm}%
 			\begin{minipage}{4.4cm}%
 			\begin{headbox}[width=4.4cm]
 				\textbf{تاریخ: \hfill\exam@date}
 			\end{headbox}%
 			\end{minipage}%
-			\hspace{.2cm}%
-			\begin{minipage}{2.4cm}%
-			\begin{headbox}[width=2.4cm]
+			\hspace{.05cm}%
+			\begin{minipage}{2.55cm}%
+			\begin{headbox}[width=2.55cm]
 				\textbf{شماره: \hfill\chair@number\vphantom{\textbf{تاریخ: \hfill\exam@date}}}
 			\end{headbox}%
 			\end{minipage}%
 			\vspace*{6pt}%
 			%			\par
 			\begin{headbox}
-				\textbf{نام: \hfill\student@firstname\ \student@lastname}
+				\textbf{\ifx\student@firstname\@nnil نام: \else\ifx\student@lastname\@nnil نام: \else\student@firstname\hfill\student@lastname\fi\fi}
 			\end{headbox}
 			%			\par
 			\begin{headbox}
-				\textbf{شعبه: \hfill\@branch}
+				\textbf{\ifx\@grade\@nnil پایه: \else\@grade\fi\hfill\ifx\@branch\@nnil کلاس: \else\@branch\fi}
 			\end{headbox}
 		\end{minipage}%
 		\begin{minipage}{\dimexpr\headwidth-10cm\relax}%
@@ -87,9 +88,9 @@
 			}%
 			\includegraphics[width=\logo@width, height=\logo@height]{\l@go}
 			\\
-			\textbf{معاونت اداره کل و مدیریت آموزش و پرورش \@city}
+			\textbf{\large معاونت اداره کل و مدیریت آموزش و پرورش \@city}
 			\\\vspace{.3cm}
-			\textbf{\school@title{} \@school}
+			\textbf{\large\school@title{} \@school}
 		\end{minipage}%
 		\begin{minipage}{3cm}%
 			\hfill%
@@ -125,12 +126,12 @@
 		colbacktitle=\quesbox@color,
 	%	coltitle=black
 		]%
-		\textbf{آزمون\ \ex@mturn\hfill درس \c@urse\hfill پایه \@grade\hfill سال تحصیلی \sch@olyear\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}\hfill وقت \answer@time}
+		\textbf{\large آزمون\ \ex@mturn\hfill درس \c@urse\hfill پایه \@grade\hfill سال تحصیلی \sch@olyear\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}\hfill وقت \answer@time}
 	\end{tcolorbox}%
 	\vskip-\baselineskip%
 }
 	\fancyhead[RE]{%
-		\large%
+		\Large%
 		\begin{tcolorbox}[
 			arc=3pt,
 			bicolor,
@@ -153,9 +154,9 @@
 		%	coltitle=black
 			]%
 			\begin{minipage}{7cm}\begin{headbox}[width=7cm,boxsep=5pt]%
-				\textbf{نام: \hfill\student@firstname\ \student@lastname}%
+				\textbf{\ifx\student@firstname\@nnil نام: \else\ifx\student@lastname\@nnil نام: \else\student@firstname\hfill\student@lastname\fi\fi}%
 			\end{headbox}\end{minipage}\hfill%
-			\begin{minipage}{3cm}\begin{headbox}[width=3cm,boxsep=5pt]%
+			\begin{minipage}{3.5cm}\begin{headbox}[width=3.5cm,boxsep=5pt]%
 				\textbf{صفحه \hfill \thepage\ از \pageref{LastPage}}%
 			\end{headbox}\end{minipage}%
 		\end{tcolorbox}%
