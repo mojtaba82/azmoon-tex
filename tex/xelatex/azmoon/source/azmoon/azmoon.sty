@@ -133,6 +133,8 @@
 \newif\ifanswermode
 \answermodefalse
 
+\def\ifisRTL{\if@RTL}
+
 \newcommand{\showanswers}{\answermodetrue}
 \newcommand{\hideanswers}{\answermodefalse}
 
@@ -599,7 +601,7 @@
 		\box\partb%
 	}}%
 	\box\matching@box
-	\ifanswermode% 
+	\ifanswermode%
 		\begin{tikzpicture}[overlay, remember picture]%
 		\foreach \x in {0,...,\num@pair}{%
 			\expandafter\ifx\csname parta\x\endcsname\relax\relax\else%
@@ -611,7 +613,8 @@
 	\fi%
 }
 
-% \providecommand{\piece}{}
+\edef\@defaultpartlabel{Alph}
+\def\partlabel#1{\edef\@defaultpartlabel{#1}}
 \newcounter{numparts}%
 \newcounter{numpart}%
 \newcounter{curpart}%
@@ -625,7 +628,6 @@
 	/parts/.cd,
 	numcols/.store in=\num@cols,
 	vertical space/.code={\setlength{\verticalspace}{#1}},
-	label type/.store in=\label@type,
 	1/.value forbidden,
 	1/.style={numcols=1},
 	2/.value forbidden,
@@ -638,30 +640,22 @@
 	5/.style={numcols=5},
 	6/.value forbidden,
 	6/.style={numcols=6},
-	label/.value forbidden,
-	label/.code={\@labelingtrue},
+	label/.default=\@defaultpartlabel,
+	label/.code={\@labelingtrue\edef\label@type{#1}},
 	without label/.value forbidden,
-	without label/.code={\@labelingfalse}
+    without label/.code={\@labelingfalse},
 }
 \newlength{\partsep}%
 \newenvironment{parts}[1][1]{%
 	\edef\parts@opt{#1}%
-	\pgfkeys{/parts/.cd,numcols=1,label,label type=\if@RTL\Alph*)\else(\Alph*\fi,#1}%
-	\setlength{\partsep}{.2cm}%
+	\pgfkeys{/parts/.cd,numcols=1,label=\@defaultpartlabel,#1}%
+	\setlength{\partsep}{0cm}%
 	\def\numcols##1{%
 		\def\num@cols{##1}%
-		\if@labeling%
-			\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .55cm\relax}%
-		\else%
 			\setlength{\partlength}{\dimexpr \linewidth / \num@cols-\partsep\relax}%
-		\fi%
-	}
-	\if@labeling%
-	\setlength{\partlength}{\dimexpr \linewidth / \num@cols - .55cm\relax}%
-	\else%
+	}%
 	\setlength{\partlength}{\dimexpr \linewidth / \num@cols-\partsep\relax}%
-	\fi%
-	\par
+	\par%
 	\setcounter{numparts}{0}%
 	\setcounter{numpart}{0}%
 	\setcounter{curpart}{0}%
@@ -669,33 +663,63 @@
 		\stepcounter{numparts}%
 		\stepcounter{numpart}%
 		\stepcounter{curpart}%
-		\ifnum\num@cols>1%
-			\begin{minipage}[t]{\partlength}%
-				\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\@Alph{\value{numpart}})}\else\parbox[b]{1.5em}{\hfill(\@Alph{\value{numpart}}}\fi\fi\ ##1%
-			\end{minipage}%
-			\if@labeling\else\hskip\partsep\fi%
-		\else%
-			\if@labeling\if@RTL\parbox[b]{1.5em}{\hfill\@Alph{\value{numpart}})}\else\parbox[b]{1.5em}{\hfill(\@Alph{\value{numpart}}}\fi\fi\ ##1%
-		\fi%
-		\ifdim\verticalspace>0pt\vspace{\verticalspace}\fi%
+% 		\ifnum\num@cols>1\minipage[t]{\partlength}\fi%
+		\minipage[t]{\partlength}
+				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
+		\endminipage
+% 		\ifnum\num@cols>1\endminipage\fi%
+% 			\if@labeling\else\hskip\partsep\fi%
+% 		\else%
+% 			\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
+% 		\fi%
 		\ifnum\value{curpart}=\num@cols%
-		\setcounter{curpart}{0}\par\else\hfill\fi%
+			\setcounter{curpart}{0}\par
+			\ifdim\verticalspace>0pt\vspace{\verticalspace}\fi%
+		\fi%
 	}%
-% 		\if@labeling\enumerate[label=\label@type,nosep,topsep=0pt,leftmargin=*, labelsep=2pt]\fi%
 	}%
 	{%
-% 	\if@labeling\endenumerate\fi%
-% 	\setcounter{curpart}{0}%
+	\ifdim\verticalspace>0pt\vspace{-\verticalspace}\fi%
 }%
+\newenvironment{filling}[1][1]{%
+\newcommand{\fillin}[1]{%
+\part{##1}
+}
+\begin{parts}[#1]
+}
+{%
+\end{parts}
+}
 
+\newcommand\drawchoicelabel[1]{
+\if@RTL\parbox[b]{1.5em}{\hfill\Alph{#1})}\else\parbox[b]{1.5em}{\hfill(\Alph{#1}}\fi%
+}
+\def\truestring{true}%
+\def\falsestring{false}%
+\edef\@defaultmultichoicelabel{Alph}
+\def\multichoicelabel#1{\edef\@defaultmultichoicelabel{#1}}
+\edef\@defaultmultichoicecheckbox{true}
+\def\multichoiceshowcheckbox{\edef\@defaultmultichoicecheckbox{true}}
+\def\multichoicehidecheckbox{\edef\@defaultmultichoicecheckbox{false}}
+\newcounter{choicenumparts}%
+\newcounter{choicenumpart}%
+\newcounter{choicecurpart}%
+\newlength{\choicepartlength}
+\setlength{\choicepartlength}{\linewidth}
+\newlength{\choiceverticalspace}
+\setlength{\choiceverticalspace}{0pt}
 \newif\if@checkbox%
 \newif\if@randomchoicesort%
 \@randomchoicesortfalse%
+\newif\if@choicelabeling
+\@choicelabelingtrue
 \def\randomchoicesort{\@randomchoicesorttrue}
 \def\manualchoicesort{\@randomchoicesortfalse}
 \pgfkeys{
 	/multichoice/.cd,
-	numcols/.store in=\num@cols,
+	numcols/.store in=\choicenum@cols,
+	vertical space/.code={\setlength{\choiceverticalspace}{#1}},
+% 	label type/.store in=\label@type,
 	1/.value forbidden,
 	1/.style={numcols=1},
 	2/.value forbidden,
@@ -708,34 +732,64 @@
 	5/.style={numcols=5},
 	6/.value forbidden,
 	6/.style={numcols=6},
-	label/.value forbidden,
-	label/.code={\@labelingtrue},
+	label/.default=\@defaultmultichoicelabel,
+	label/.code={\@choicelabelingtrue\edef\choicelabel@type{#1}},
 	without label/.value forbidden,
-    without label/.code={\@labelingfalse},
+    without label/.code={\@choicelabelingfalse},
 	checkbox/.value forbidden,
 	checkbox/.code={\@checkboxtrue},
 	without checkbox/.value forbidden,
 	without checkbox/.code={\@checkboxfalse}
 }
+\newlength{\choicepartsep}%
 \newenvironment{multichoice}[1][4]{%
-	\pgfkeys{/multichoice/.cd,without checkbox,#1}%
+	\ifx\@defaultmultichoicecheckbox\truestring \@checkboxtrue\fi%
+	\ifx\@defaultmultichoicecheckbox\falsestring \@checkboxfalse\fi%
+	\edef\choiceparts@opt{#1}%
+	\pgfkeys{/multichoice/.cd,numcols=1,label=\@defaultmultichoicelabel,#1}%
+	\setlength{\choicepartsep}{0cm}%
+	\def\choicenumcols##1{%
+		\def\choicenum@cols{##1}%
+		\setlength{\choicepartlength}{\dimexpr \linewidth / \choicenum@cols-\choicepartsep\relax}%
+	}%
+	\setlength{\choicepartlength}{\dimexpr \linewidth / \choicenum@cols-\choicepartsep\relax}%
+	\par%
+	\setcounter{choicenumparts}{0}%
+	\setcounter{choicenumpart}{0}%
+	\setcounter{choicecurpart}{0}%
+	\newcommand{\choicepart}[1]{%
+		\stepcounter{choicenumparts}%
+		\stepcounter{choicenumpart}%
+		\stepcounter{choicecurpart}%
+		\minipage[t]{\choicepartlength}%
+				\if@choicelabeling\drawchoicelabel{choicenumpart}\fi\ ##1%
+			\endminipage%
+% 			\if@choicelabeling\else\hskip\choicepartsep\fi%
+% 		\else%
+% 			\if@choicelabeling\if@RTL\parbox[b]{1.5em}{\hfill\csname\choicelabel@type\endcsname{choicenumpart})}\else\parbox[b]{1.5em}{\hfill(\csname\choicelabel@type\endcsname{choicenumpart}}\fi\fi\ ##1%
+% 		\fi%
+		\ifnum\value{choicecurpart}=\choicenum@cols%
+		\setcounter{choicecurpart}{0}\par%
+		\ifdim\choiceverticalspace>0pt\vspace{\choiceverticalspace}\fi%
+		\fi%
+	}%
+% 	\pgfkeys{/multichoice/.cd,checkbox,#1}%
 %	\@checkboxtrue%
 	\newcount\chcount%
 	\chcount 1\relax%
 	\newcommand{\@choice}[2][{}]{%
-		\expandafter\gdef\csname choice\the\chcount \endcsname{\part{\if@checkbox\tf[##1]\fi\ ##2}}%
+		\expandafter\gdef\csname choice\the\chcount \endcsname{\choicepart{\if@checkbox\tf[##1]\fi\ ##2}}%
 		\advance\chcount 1\relax%
-	}
+	}%
 	\newcommand{\choice}[1]{%
-		\@choice{##1}
-	}
+		\@choice{##1}%
+	}%
 	\newcommand{\truechoice}[1]{%
-	\@choice[t]{##1}
-	}
-%    \meaning\num@cols
-    \edef\multichoice@opts{\num@cols,\if@labeling label\else without label\fi}%
-	\expandafter\parts\expandafter[\multichoice@opts]
-	}
+	\@choice[t]{##1}%
+	}%
+%     \edef\multichoice@opts{\num@cols,\if@choicelabeling label\else without label\fi}%
+% 	\expandafter\parts\expandafter[\multichoice@opts]
+	}%
 	{%
 		\pgfmathsetseed{\@examcode\thenumques\thecurpart}%
 		\advance\chcount -1\relax%
@@ -748,10 +802,11 @@
 				\csname choice\x\endcsname%
 			\fi%
 		}%
-	\endparts
-}
+		\ifdim\choiceverticalspace>0pt\vspace{-\choiceverticalspace}\fi%
+% 	\endparts%
+}%
 \newenvironment{fourchoice}[1][4]{%
-\begin{multichoice}[#1]
+\begin{multichoice}[4,#1]
 }
 {%
 \end{multichoice}
