@@ -676,9 +676,9 @@
 		\stepcounter{numpart}%
 		\stepcounter{curpart}%
 % 		\ifnum\num@cols>1\minipage[t]{\partlength}\fi%
-		\minipage[t]{\partlength}
-				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
-		\endminipage
+		\minipage[t]{\partlength}%
+				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ \baselineskip=1.5\baselineskip##1}\else\ \baselineskip=1.5\baselineskip##1\fi%
+		\endminipage%
 % 		\ifnum\num@cols>1\endminipage\fi%
 % 			\if@labeling\else\hskip\partsep\fi%
 % 		\else%

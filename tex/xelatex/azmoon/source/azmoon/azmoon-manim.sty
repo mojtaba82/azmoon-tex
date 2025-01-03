@@ -1,11 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{azmoon}
-\RequirePackage{amsmath}
-\RequirePackage{cancel}
-% \RequirePackage{autofancyhdr}
-\RequirePackage{fancyhdr}
-%\RequirePackage{textcomp}
-%\RequirePackage{gensymb}
+\ProvidesPackage{azmoon-manim}
+% \RequirePackage{amsmath}
+% \RequirePackage{cancel}
+% \RequirePackage{fancyhdr}
 \RequirePackage{enumitem}
 \RequirePackage{totcount}
 \RequirePackage{lastpage}
@@ -19,15 +16,12 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows}
 \RequirePackage{forest}
-% \RequirePackage{geometry}
+\RequirePackage{geometry}
 \RequirePackage{textmerg}
 \RequirePackage{trimspaces}
-%\RequirePackage{environ}
-%\RequirePackage{ocg-p}
 \RequirePackage{fouriernc}
 \RequirePackage{etoolbox}
-%\RequirePackage{environ}
-\RequirePackage{biditools}
+% \RequirePackage{biditools}
 
 \newcommand\printlinesep{\@printlineseptrue}
 \newcommand\noprintlinesep{\@printlinesepfalse}
@@ -206,7 +200,6 @@
 			\node[rectangle, rounded corners, draw=blue] {\rl{$#3$ نمره}};
 		\end{tikzpicture}
 	\fi%
-	\baselineskip1.5\baselineskip%
 	#2
 	\ifx#5\@nnil\else%
 	\par\hfill\bgroup\scriptsize\@source\egroup%
@@ -313,8 +306,6 @@
 	\egroup%
 }%
 \newenvironment{questions}{%
-	\setcounter{numques}{0}%
-	\setcounter{numbonques}{0}%
 	\pgfkeys{
 		/bonusquestion/.cd,
 		stars/.store in=\st@rs,
@@ -667,16 +658,16 @@
 		\stepcounter{numpart}%
 		\stepcounter{curpart}%
 % 		\ifnum\num@cols>1\minipage[t]{\partlength}\fi%
-		\minipage[t]{\partlength}%
-				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ \baselineskip=1.5\baselineskip##1}\else\ \baselineskip=1.5\baselineskip##1\fi%
-		\endminipage%
+		\minipage[t]{\partlength}
+				\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
+		\endminipage
 % 		\ifnum\num@cols>1\endminipage\fi%
 % 			\if@labeling\else\hskip\partsep\fi%
 % 		\else%
 % 			\if@labeling\parbox[t]{1.5em}{\if@RTL\parbox[b]{1.5em}{\hfill\csname\label@type\endcsname{numpart})}\else\parbox[b]{1.5em}{\hfill(\csname\label@type\endcsname{numpart}}\fi}\parbox[t]{\dimexpr \linewidth - 1.5em\relax}{\ ##1}\else\ ##1\fi%
 % 		\fi%
 		\ifnum\value{curpart}=\num@cols%
-			\setcounter{curpart}{0}\par%
+			\setcounter{curpart}{0}\par
 			\ifdim\verticalspace>0pt\vspace{\verticalspace}\fi%
 		\fi%
 	}%
